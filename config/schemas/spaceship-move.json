@@ -1,0 +1,11 @@
+{
+    "time": {
+        "_type": "number",
+        "_required": true
+    },
+
+    "power": {
+        "_type": "number",
+        "_default": 1
+    }
+}

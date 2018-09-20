@@ -1,0 +1,11 @@
+{
+    "angle": {
+        "_type": "number",
+        "_required": true
+    },
+
+    "direction": {
+        "_type": "number",
+        "_default": 1
+    }
+}

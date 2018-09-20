@@ -1,0 +1,6 @@
+{
+    "power": {
+        "_type": "number",
+        "_required": true
+    }
+}

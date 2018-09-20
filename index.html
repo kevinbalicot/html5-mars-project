@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>HTML5 Mars Project</title>
+        <link rel="stylesheet" href="//stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    </head>
+    <body>
+        <section class="container-fluid">
+            <div class="row">
+                <section class="col-md-10">
+                </section>
+
+                <section class="col-md-2">
+                    <h5>Actions</h5>
+                    <div id="chat-container"></div>
+                </section>
+            </div>
+        </section>
+
+        <script src="/src/models/spaceship.js" charset="utf-8"></script>
+        <script>
+            const spaceships = [];
+            spaceships.push(new Spaceship(1));
+            spaceships.push(new Spaceship(2));
+            spaceships.push(new Spaceship(3));
+            spaceships.push(new Spaceship(4));
+
+            const chat = {
+                items: [],
+                container: document.getElementById('chat-container'),
+                add: function(user, message) {
+                    this.items.push({
+                        username: user.username,
+                        job: user.job,
+                        team: user.team,
+                        message
+                    });
+
+                    this.refreshView();
+                },
+                refreshView: function() {
+                    this.container.innerHTML = null;
+                    this.items.forEach(({ username, job, team, message }) => {
+                        const card = document.createElement('div');
+                        card.className = 'card team-' + team;
+                        card.innerHTML = `
+                            <div class="card-body">${username} [${job}]: ${message}</div>
+                        `;
+
+                        this.container.appendChild(card)
+                    });
+                }
+            };
+
+            const emitter = {
+                subcribers: [],
+                subscribe: function(name, callback) {
+                    this.subcribers.push({ name, callback });
+                },
+                unsubscribe: function(name) {
+                    this.subcribers = this.subcribers.filter(s => s.name !== name);
+                },
+                emit(name, data, spaceship) {
+                    this.subcribers.filter(s => s.name === name).forEach(s => s.callback(data, spaceship));
+                }
+            };
+
+            const ws = new WebSocket('ws://localhost:8080?type=master&team=1');
+
+            ws.sendToServer = function(name, data) {
+                const message = JSON.stringify({ name, data });
+
+                this.send(message);
+            };
+
+            ws.onmessage = (message) => {
+                const { name, data, error } = JSON.parse(message.data);
+
+                if (!error) {
+                    let message = name;
+                    for (let key in data) {
+                        if (['user'].indexOf(key) === -1) {
+                            message += ` [${key}=${data[key]}]`;
+                        }
+                    }
+
+                    chat.add(data.user, message);
+                } else {
+                    return alert(error);
+                }
+
+                const spaceship = spaceships.find(s => s.team == data.user.team);
+                emitter.emit(name, data, spaceship);
+            };
+
+            emitter.subscribe('spaceship:move', (data, spaceship) => {
+                spaceship.move(data.time, data.power);
+            });
+
+            emitter.subscribe('spaceship:rotate', (data, spaceship) => {
+                spaceship.rotate(data.speed, data.direction);
+            });
+
+
+            emitter.subscribe('spaceship:thruster:power', (data, spaceship) => {
+                spaceship.changeThrusterPower(data.power);
+            });
+
+            emitter.subscribe('spaceship:shield:power', (data, spaceship) => {
+                spaceship.changeShieldPower(data.power);
+            });
+
+            emitter.subscribe('spaceship:system:power', (data, spaceship) => {
+                spaceship.changeSystemPower(data.power);
+            });
+
+            ws.onopen = () => {
+                ws.sendToServer('spaceship:move', { time: 2 });
+            };
+        </script>
+    </body>
+</html>
