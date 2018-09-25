@@ -73,9 +73,9 @@ wss.getTeamClients = function(team) {
  */
 wss.sendToClient = function(toClient, name, data, fromClient = null) {
     if (null !== fromClient) {
-        const { id, username, job, team } = fromClient;
+        const { id, username, job, team, avatar } = fromClient;
 
-        data.user = { id, username, job, team };
+        data.user = { id, username, job, team, avatar };
     }
 
     const message = JSON.stringify({ name, data });
@@ -110,6 +110,11 @@ wss.subscribe('spaceship:info', (data, client, server) => {
     server.getTeamClients(data.team).forEach(client => {
         server.sendToClient(client, 'spaceship:info', data);
     });
+});
+
+// User
+wss.subscribe('user:avatar', (data, client, server) => {
+    client.avatar = data.avatar;
 });
 
 // Pilote actions

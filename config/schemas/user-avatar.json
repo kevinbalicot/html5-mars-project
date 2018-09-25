@@ -1,0 +1,6 @@
+{
+    "avatar": {
+        "_type": "string",
+        "_required": true
+    }
+}

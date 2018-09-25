@@ -44,6 +44,7 @@ class Spaceship extends BaseModel {
         this.inSafeZone = true;
         this.cargo = false;
         this.opacity = 1;
+        this.color = ['orange', 'blue', 'red', 'violet'][this.team - 1];
     }
 
     fire(power) {
@@ -76,17 +77,17 @@ class Spaceship extends BaseModel {
         }
     }
 
-    hit(model, direction = 1) {
+    hit(power, angle, dammage, direction = 1) {
         if (!this.hitting) {
-            this.life -= 20 * (1 - this.shieldPower);
+            this.life -= dammage * (1 - this.shieldPower);
             this.hitting = true;
 
             setTimeout(() => this.hitting = false, 2000);
         }
 
-        const radians = model.angle * Math.PI / 180;
-        this.velX += direction * Math.cos(radians) * (model.thrust * model.power);
-        this.velY += direction * Math.sin(radians) * (model.thrust * model.power);
+        const radians = angle * Math.PI / 180;
+        this.velX += direction * Math.cos(radians) * power;
+        this.velY += direction * Math.sin(radians) * power;
 
         if (this.life <= 0) {
             this.life = 0;
@@ -212,7 +213,7 @@ class Spaceship extends BaseModel {
         drawer.save();
         drawer.rotateModel(this, this.turretAngle);
         drawer.ctx.setLineDash([5, 3]);
-        drawer.drawLine(this.x + this.width / 2, this.y + this.height / 2, this.x + this.width + 25, this.y + this.height / 2, 1, 'yellow');
+        drawer.drawLine(this.x + this.width / 2, this.y + this.height / 2, this.x + this.width + 25, this.y + this.height / 2, 1, this.color);
         drawer.restore();
 
         drawer.save();

@@ -145,6 +145,13 @@
             .show {
                 display: block;
             }
+
+            .avatar {
+                margin-right: 10px;
+                width: 50px;
+                height: 50px;
+                border-radius: 10px;
+            }
         </style>
     </head>
     <body>
@@ -180,6 +187,7 @@
                     <article class="spaceship-crew">
                         <fieldset>
                             <legend>Crew</legend>
+                            <img class="float-left avatar" id="spaceship-crew-avatar">
                             <span class="float-right badge" id="spaceship-team"></span>
                             <p id="spaceship-crew"></p>
                         </fieldset>
@@ -359,6 +367,11 @@
                                 <label for="username">Username</label>
                                 <input id="username" class="form-control" type="text" required="required">
                             </div>
+
+                            <div class="form-group">
+                                <label for="avatar">Avatar</label>
+                                <input id="avatar" type="file" accept="image/*" required="required">
+                            </div>
                         </form>
                     </div>
                     <div class="modal-footer">
@@ -461,7 +474,15 @@
                 const team = event.target.elements.team.value;
                 const username = event.target.elements.username.value;
                 const job = event.target.elements.job.value;
+                const avatar = event.target.elements.avatar.files[0];
+                const reader = new FileReader();
+
                 const ws = new WebSocket(`ws://${url}?team=${team}&username=${username}&job=${job}`);
+
+                reader.onload = (event) => {
+                    ws.sendToServer('user:avatar', { avatar: event.target.result });
+                    document.getElementById('spaceship-crew-avatar').src = event.target.result;
+                };
 
                 ws.sendToServer = function(name, data) {
                     const message = JSON.stringify({ name, data });
@@ -500,6 +521,8 @@
 
                 ws.onopen = () => {
                     console.log('open');
+
+                    reader.readAsDataURL(avatar);
 
                     document.getElementById('spaceship-move').addEventListener('click', () => ws.sendToServer('spaceship:move', { time: 1000 }));
                     document.getElementById('spaceship-rotate-left').addEventListener('click', () => ws.sendToServer('spaceship:rotate', { angle: 45, direction: -1 }));

@@ -36,6 +36,13 @@
                 bottom: 0;
                 overflow: hidden;
             }
+
+            .avatar {
+                margin-right: 5px;
+                width: 20px;
+                height: 20px;
+                border-radius: 10px;
+            }
         </style>
     </head>
     <body>
@@ -68,76 +75,40 @@
 
                     this.safeZone = new Model(0, 0, this.width * 0.1, this.height);
                     this.goalZone = new Model(this.width - (this.width * 0.1), 0, this.width * 0.1, this.height);
-                    this.goal = new Station((this.width * 0.9) + 25, this.height / 2 - 50, 100, 100, 'white', null);
-                    this.stations.push(this.goal);
+                    this.stations.push(new Station((this.width * 0.9) + 25, this.height / 2 - 50, 100, 100, 'white', null));
 
+                    let spaceship;
+                    let station;
+                    let color = ['orange', 'blue', 'red', 'violet'];
                     let delta = Math.round(this.height * 0.25) / 2 + 30;
-                    const spaceship1 = new Spaceship(1, 20, Math.round(this.height * 0.25) - delta);
-                    this.station1 = new Station(spaceship1.x, spaceship1.y - (50 - spaceship1.height / 2), spaceship1.width, 100, 'orange', spaceship1.team);
-                    this.spaceships.push(spaceship1);
-                    this.stations.push(this.station1);
-
-                    const spaceship2 = new Spaceship(2, 20, Math.round(this.height * 0.50) - delta);
-                    this.station2 = new Station(spaceship2.x, spaceship2.y - (50 - spaceship2.height / 2), spaceship2.width, 100, 'blue', spaceship2.team);
-                    this.spaceships.push(spaceship2);
-                    this.stations.push(this.station2);
-
-                    const spaceship3 = new Spaceship(3, 20, Math.round(this.height * 0.75) - delta);
-                    this.station3 = new Station(spaceship3.x, spaceship3.y - (50 - spaceship3.height / 2), spaceship3.width, 100, 'red', spaceship3.team);
-                    this.spaceships.push(spaceship3);
-                    this.stations.push(this.station3);
-
-                    const spaceship4 = new Spaceship(4, 20, this.height - delta);
-                    this.station4 = new Station(spaceship4.x, spaceship4.y - (50 - spaceship4.height / 2), spaceship4.width, 100, 'violet', spaceship4.team);
-                    this.spaceships.push(spaceship4);
-                    this.stations.push(this.station4);
+                    for (let i = 0; i < 4; i++) {
+                        spaceship = new Spaceship(i + 1, 20, Math.round(this.height * (0.25 * (i + 1))) - delta);
+                        station = new Station(spaceship.x, spaceship.y - (50 - spaceship.height / 2), spaceship.width, 100, color[i], spaceship.team);
+                        this.spaceships.push(spaceship);
+                        this.stations.push(station);
+                    }
 
                     delta = (Math.round(this.height * 0.33) / 2);
-                    const asteroid1 = new Asteroid(Math.round(this.width * 0.20), Math.round(this.height * 0.33) - delta);
-                    this.asteroids.push(asteroid1);
-
-                    const asteroid2 = new Asteroid(Math.round(this.width * 0.20), Math.round(this.height * 0.66) - delta);
-                    this.asteroids.push(asteroid2);
-
-                    const asteroid3 = new Asteroid(Math.round(this.width * 0.20), this.height - delta);
-                    this.asteroids.push(asteroid3);
-
+                    this.asteroids.push(new Asteroid(Math.round(this.width * 0.20), Math.round(this.height * 0.33) - delta));
+                    this.asteroids.push(new Asteroid(Math.round(this.width * 0.20), Math.round(this.height * 0.66) - delta));
+                    this.asteroids.push(new Asteroid(Math.round(this.width * 0.20), this.height - delta));
 
                     delta = (Math.round(this.height * 0.25) / 2);
-                    const asteroid4 = new Asteroid(Math.round(this.width * 0.40), Math.round(this.height * 0.25) - delta);
-                    this.asteroids.push(asteroid4);
-
-                    const asteroid5 = new Asteroid(Math.round(this.width * 0.40), Math.round(this.height * 0.50) - delta);
-                    this.asteroids.push(asteroid5);
-
-                    const asteroid6 = new Asteroid(Math.round(this.width * 0.40), Math.round(this.height * 0.75) - delta);
-                    this.asteroids.push(asteroid6);
-
-                    const asteroid7 = new Asteroid(Math.round(this.width * 0.40), this.height - delta);
-                    this.asteroids.push(asteroid7);
+                    this.asteroids.push(new Asteroid(Math.round(this.width * 0.40), Math.round(this.height * 0.25) - delta));
+                    this.asteroids.push(new Asteroid(Math.round(this.width * 0.40), Math.round(this.height * 0.50) - delta));
+                    this.asteroids.push(new Asteroid(Math.round(this.width * 0.40), Math.round(this.height * 0.75) - delta));
+                    this.asteroids.push(new Asteroid(Math.round(this.width * 0.40), this.height - delta));
 
                     delta = (Math.round(this.height * 0.33) / 2);
-                    const asteroid8 = new Asteroid(Math.round(this.width * 0.60), Math.round(this.height * 0.33) - delta);
-                    this.asteroids.push(asteroid8);
-
-                    const asteroid9 = new Asteroid(Math.round(this.width * 0.60), Math.round(this.height * 0.66) - delta);
-                    this.asteroids.push(asteroid9);
-
-                    const asteroid10 = new Asteroid(Math.round(this.width * 0.60), this.height - delta);
-                    this.asteroids.push(asteroid10);
+                    this.asteroids.push(new Asteroid(Math.round(this.width * 0.60), Math.round(this.height * 0.33) - delta));
+                    this.asteroids.push(new Asteroid(Math.round(this.width * 0.60), Math.round(this.height * 0.66) - delta));
+                    this.asteroids.push(new Asteroid(Math.round(this.width * 0.60), this.height - delta));
 
                     delta = (Math.round(this.height * 0.25) / 2);
-                    const asteroid11 = new Asteroid(Math.round(this.width * 0.80), Math.round(this.height * 0.25) - delta);
-                    this.asteroids.push(asteroid11);
-
-                    const asteroid12 = new Asteroid(Math.round(this.width * 0.80), Math.round(this.height * 0.50) - delta);
-                    this.asteroids.push(asteroid12);
-
-                    const asteroid13 = new Asteroid(Math.round(this.width * 0.80), Math.round(this.height * 0.75) - delta);
-                    this.asteroids.push(asteroid13);
-
-                    const asteroid14 = new Asteroid(Math.round(this.width * 0.80), this.height - delta);
-                    this.asteroids.push(asteroid14);
+                    this.asteroids.push(new Asteroid(Math.round(this.width * 0.80), Math.round(this.height * 0.25) - delta));
+                    this.asteroids.push(new Asteroid(Math.round(this.width * 0.80), Math.round(this.height * 0.50) - delta));
+                    this.asteroids.push(new Asteroid(Math.round(this.width * 0.80), Math.round(this.height * 0.75) - delta));
+                    this.asteroids.push(new Asteroid(Math.round(this.width * 0.80), this.height - delta));
 
                     this.chat = new Chat(document.getElementById('chat-container'));
                     this.client = new SocketClient(`ws://${url}?type=master`);
@@ -217,19 +188,23 @@
 
                 step: function (dt) {
                     let hasCollision;
+                    let angle;
+
                     this.spaceships.forEach(spaceship => {
                         spaceship.step(dt);
 
                         hasCollision = CollisionChecker.hasCollisions(spaceship, this.spaceships);
                         if (hasCollision && hasCollision.team !== spaceship.team) {
-                            spaceship.hit({ angle: (hasCollision.angle + 180) % 360, thrust: hasCollision.thrust, power: 0.5 }, -1);
-                            hasCollision.hit({ angle: (spaceship.angle + 180) % 360, thrust: spaceship.thrust, power: 0.5 }, -1);
+                            angle = Math.atan2((hasCollision.y + hasCollision.height / 2)- (spaceship.y + spaceship.height / 2), (hasCollision.x + hasCollision.width / 2) - (spaceship.x + spaceship.width / 2)) * 180 / Math.PI;
+                            spaceship.hit(0.5, angle, 25, -1);
+                            hasCollision.hit(0.5, angle, 25);
                         }
 
                         hasCollision = CollisionChecker.hasCollisions(spaceship, this.asteroids);
                         if (hasCollision) {
-                            spaceship.hit({ angle: spaceship.angle, thrust: spaceship.thrust, power: 1 }, -1);
-                            hasCollision.hit({ angle: spaceship.angle, thrust: spaceship.thrust, power: 0.5 }, 1);
+                            angle = Math.atan2((hasCollision.y + hasCollision.height / 2)- (spaceship.y + spaceship.height / 2), (hasCollision.x + hasCollision.width / 2) - (spaceship.x + spaceship.width / 2)) * 180 / Math.PI;
+                            spaceship.hit(0.5, angle, 50, -1);
+                            hasCollision.hit(0.1, angle);
                         }
 
                         spaceship.inSafeZone = !!CollisionChecker.hasCollisionBetweenCircleAndRectangle(spaceship.hitbox, this.safeZone.hitbox);
@@ -280,7 +255,7 @@
 
                         hasCollision = CollisionChecker.hasCollisions(bullet, this.spaceships);
                         if (hasCollision && hasCollision.team !== bullet.team) {
-                            hasCollision.hit(bullet);
+                            hasCollision.hit(bullet.power, bullet.angle, 100);
                             this.bullets.splice(index, 1);
                         }
 
@@ -316,6 +291,11 @@
                     this.stations.forEach(station => station.render(this));
                     this.spaceships.forEach(spaceship => spaceship.render(this));
 
+                    this.save();
+                    this.ctx.globalAlpha = .1;
+                    this.ctx.setLineDash([20, 20]);
+                    this.drawLine(this.safeZone.x + this.safeZone.width, 0, this.safeZone.x + this.safeZone.width, this.height, 10, 'white');
+                    this.restore();
 
                     this.drawText(`Team 1: ${this.scores[1]}`, 20, 20, '12pt', 'Arial', 'white');
                     this.drawText(`Team 2: ${this.scores[2]}`, 120, 20, '12pt', 'Arial', 'white');

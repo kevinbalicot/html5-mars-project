@@ -17,6 +17,7 @@ class Chat {
             username: user.username,
             job: user.job,
             team: user.team,
+            avatar: user.avatar,
             message
         });
 
@@ -25,11 +26,14 @@ class Chat {
 
     refreshView() {
         this.container.innerHTML = null;
-        this.items.forEach(({ username, job, team, message }) => {
+        this.items.forEach(({ username, job, team, avatar, message }) => {
             const card = document.createElement('div');
             card.className = 'card mb-2';
             card.innerHTML = `
-                <div class="card-body">${username} [${job}]: ${message}</div>
+                <div class="card-body">
+                    <img class="float-left avatar" src="${avatar}">
+                    ${username} [${job}]: ${message}
+                </div>
             `;
 
             this.container.appendChild(card);

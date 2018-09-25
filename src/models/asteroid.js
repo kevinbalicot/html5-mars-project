@@ -10,10 +10,10 @@ class Asteroid extends BaseModel {
         this.velY = 0;
     }
 
-    hit(model, direction = 1) {
-        const radians = model.angle * Math.PI / 180;
-        this.velX += direction * Math.cos(radians) * (model.thrust * model.power);
-        this.velY += direction * Math.sin(radians) * (model.thrust * model.power);
+    hit(power, angle, direction = 1) {
+        const radians = angle * Math.PI / 180;
+        this.velX += direction * Math.cos(radians) * power;
+        this.velY += direction * Math.sin(radians) * power;
     }
 
     step(dt) {
