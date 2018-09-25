@@ -1,0 +1,6 @@
+{
+    "angle": {
+        "_type": "number",
+        "_required": true
+    }
+}

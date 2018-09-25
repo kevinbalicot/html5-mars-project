@@ -1,0 +1,81 @@
+{
+    "team": {
+        "_type": "number",
+        "_required": true
+    },
+
+    "x": {
+        "_type": "number",
+        "_required": true
+    },
+
+    "y": {
+        "_type": "number",
+        "_required": true
+    },
+
+    "life": {
+        "_type": "number",
+        "_required": true
+    },
+
+    "broken": {
+        "_type": "boolean",
+        "_required": true
+    },
+
+    "angle": {
+        "_type": "number",
+        "_required": true
+    },
+
+    "turnTo": {
+        "_type": "number",
+        "_required": true
+    },
+
+    "turnDirection": {
+        "_type": "number",
+        "_required": true
+    },
+
+    "turretAngle": {
+        "_type": "number",
+        "_required": true
+    },
+
+    "turretTurnTo": {
+        "_type": "number",
+        "_required": true
+    },
+
+    "turretTurnDirection": {
+        "_type": "number",
+        "_required": true
+    },
+
+    "thrusterPower": {
+        "_type": "number",
+        "_required": true
+    },
+
+    "shieldPower": {
+        "_type": "number",
+        "_required": true
+    },
+
+    "systemPower": {
+        "_type": "number",
+        "_required": true
+    },
+
+    "reloaded": {
+        "_type": "boolean",
+        "_required": true
+    },
+
+    "reloading": {
+        "_type": "boolean",
+        "_required": true
+    }
+}

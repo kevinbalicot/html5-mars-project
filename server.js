@@ -11,9 +11,15 @@ const httpServer = createServer(app);
 const validator = new Validator();
 
 app.link('/src', __dirname + '/src');
+app.link('/modules', __dirname + '/node_modules');
+app.link('/public', __dirname + '/public');
 
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/index.html', 'index.html', 'text/html', false);
+});
+
+app.get('/controller', (req, res) => {
+    res.sendFile(__dirname + '/controller.html', 'controller.html', 'text/html', false);
 });
 
 const wss = new Server({ server: httpServer });
@@ -51,19 +57,30 @@ wss.getClients = function() {
 };
 
 /**
+ * Return all clients of team
+ * @return {Array<Client>}
+ */
+wss.getTeamClients = function(team) {
+    return Array.from(this.clients).filter(client => client.team == team);
+};
+
+/**
  * Send to client event
- * @param {Client} client
+ * @param {Client} toClient
  * @param {string} name
  * @param {Object} data
+ * @param {Client} [fromClient=null]
  */
-wss.sendToClient = function(client, name, data) {
-    const { id, username, job, team } = client;
+wss.sendToClient = function(toClient, name, data, fromClient = null) {
+    if (null !== fromClient) {
+        const { id, username, job, team } = fromClient;
 
-    data.user = { id, username, job, team };
+        data.user = { id, username, job, team };
+    }
 
     const message = JSON.stringify({ name, data });
 
-    client.send(message);
+    toClient.send(message);
 };
 
 wss.on('connection', (client, req) => {
@@ -89,39 +106,49 @@ wss.on('connection', (client, req) => {
     });
 });
 
-// Pilote actions
-wss.subscribe('spaceship:move', (data, client, server) => {
-    server.sendToClient(server.getMaster(), 'spaceship:move', data);
+wss.subscribe('spaceship:info', (data, client, server) => {
+    server.getTeamClients(data.team).forEach(client => {
+        server.sendToClient(client, 'spaceship:info', data);
+    });
 });
 
-wss.subscribe('spaceship:rotate', (data, client) => {
-    server.sendToClient(server.getMaster(), 'spaceship:rotate', data);
+// Pilote actions
+wss.subscribe('spaceship:move', (data, client, server) => {
+    server.sendToClient(server.getMaster(), 'spaceship:move', data, client);
+});
+
+wss.subscribe('spaceship:rotate', (data, client, server) => {
+    server.sendToClient(server.getMaster(), 'spaceship:rotate', data, client);
+});
+
+wss.subscribe('spaceship:turnto', (data, client, server) => {
+    server.sendToClient(server.getMaster(), 'spaceship:turnto', data, client);
 });
 
 // Gunner actions
-wss.subscribe('spaceship:turret:rotate', (data, client) => {
-    server.sendToClient(server.getMaster(), 'spaceship:turret:rotate', data);
+wss.subscribe('spaceship:turret:rotate', (data, client, server) => {
+    server.sendToClient(server.getMaster(), 'spaceship:turret:rotate', data, client);
 });
 
-wss.subscribe('spaceship:turret:fire', (data, client) => {
-    server.sendToClient(server.getMaster(), 'spaceship:turret:fire', data);
+wss.subscribe('spaceship:turret:turnto', (data, client, server) => {
+    server.sendToClient(server.getMaster(), 'spaceship:turret:turnto', data, client);
 });
 
-wss.subscribe('spaceship:turret:reload', (data, client) => {
-    server.sendToClient(server.getMaster(), 'spaceship:turret:reload', data);
+wss.subscribe('spaceship:turret:fire', (data, client, server) => {
+    server.sendToClient(server.getMaster(), 'spaceship:turret:fire', data, client);
 });
 
 // Engineer
-wss.subscribe('spaceship:thruster:power', (data, client) => {
-    server.sendToClient(server.getMaster(), 'spaceship:thruster:power', data);
+wss.subscribe('spaceship:thruster:power', (data, client, server) => {
+    server.sendToClient(server.getMaster(), 'spaceship:thruster:power', data, client);
 });
 
-wss.subscribe('spaceship:shield:power', (data, client) => {
-    server.sendToClient(server.getMaster(), 'spaceship:shield:power', data);
+wss.subscribe('spaceship:shield:power', (data, client, server) => {
+    server.sendToClient(server.getMaster(), 'spaceship:shield:power', data, client);
 });
 
-wss.subscribe('spaceship:system:power', (data, client) => {
-    server.sendToClient(server.getMaster(), 'spaceship:system:power', data);
+wss.subscribe('spaceship:system:power', (data, client, server) => {
+    server.sendToClient(server.getMaster(), 'spaceship:system:power', data, client);
 });
 
 httpServer.listen(8080);

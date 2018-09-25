@@ -1,13 +1,15 @@
 
-class Spaceship {
-    constructor(team, x = 0, y = 0) {
+class Spaceship extends BaseModel {
+    constructor(team, x = 0, y = 0, width = 120, height = 60) {
+        super(x, y, width, height, { x: width / 2, y: height / 2, radius: 50 });
+
         this.team = team;
-        this.x = x;
-        this.y = y;
+        this.image = loader.get(`ship${team}`);
 
         this.life = 100;
-        this.repair = 0;
+        this.repairLevel = 0;
         this.broken = false;
+        this.hitting = false;
 
         this.isThrusting = false;
         this.thrust = 0.1;
@@ -18,12 +20,12 @@ class Spaceship {
 
         this.angle = 0;
         this.turnTo = 0;
-        this.turnSpeed = 0.001;
+        this.turnSpeed = 1;
         this.turnDirection = 1;
 
         this.turretAngle = 0;
         this.turretTurnTo = 0;
-        this.turrentTurnSpeed = 0.005;
+        this.turretTurnSpeed = 1;
         this.turretTurnDirection = 1;
 
         this.color = "rgb(255,0,0)";
@@ -38,31 +40,53 @@ class Spaceship {
         this.pointLength = 20;
         this.px = 0;
         this.py = 0;
+
+        this.inSafeZone = true;
+        this.cargo = false;
+        this.opacity = 1;
     }
 
-    fire() {
-        if (!this.reloading) {
+    fire(power) {
+        if (!this.inSafeZone && this.reloaded) {
             this.reloading = true;
             this.reloaded = false;
 
             setTimeout(() => {
                 this.reloading = false;
                 this.reloaded = true;
-            }, 1000);
+            }, 5000 * power);
+
+            return new Bullet(this.x + this.width / 2, this.y + this.height / 2, this.turretAngle, power, this.team);
         }
+
+        return null;
     }
 
     repair() {
-        this.repair += 1 * this.systemPower;
+        this.repairLevel += 0.05 * this.systemPower;
 
-        if (this.repair >= 1) {
+        if (this.repairLevel >= 1) {
             this.life++;
-            this.repair = 0;
+            this.repairLevel = 0;
+        }
+
+        this.life = Math.round(this.life);
+        if (this.life >= 100) {
+            this.life = 100;
         }
     }
 
-    hit() {
-        this.life -= 5 * (1 - this.shieldPower);
+    hit(model, direction = 1) {
+        if (!this.hitting) {
+            this.life -= 20 * (1 - this.shieldPower);
+            this.hitting = true;
+
+            setTimeout(() => this.hitting = false, 2000);
+        }
+
+        const radians = model.angle * Math.PI / 180;
+        this.velX += direction * Math.cos(radians) * (model.thrust * model.power);
+        this.velY += direction * Math.sin(radians) * (model.thrust * model.power);
 
         if (this.life <= 0) {
             this.life = 0;
@@ -70,13 +94,15 @@ class Spaceship {
     }
 
     move(time, gaz = 1) {
-        this.isThrusting = true;
-        this.gaz = gaz;
+        if (!this.isThrusting) {
+            this.isThrusting = true;
+            this.gaz = gaz;
 
-        setTimeout(() => {
-            this.isThrusting = false;
-            this.gaz = 1;
-        }, time);
+            setTimeout(() => {
+                this.isThrusting = false;
+                this.gaz = 1;
+            }, time);
+        }
     }
 
     rotate(angle, direction) {
@@ -84,12 +110,33 @@ class Spaceship {
         this.turnDirection = direction;
     }
 
+    rotateTurret(angle, direction) {
+        this.turretTurnTo = angle;
+        this.turretTurnDirection = direction;
+    }
+
     turn() {
         this.angle += this.turnSpeed * this.turnDirection;
+        this.turnTo--;
+
+        this.angle = this.angle < 0 ? (360 + this.angle) : this.angle % 360;
     }
 
     turnTurret() {
         this.turretAngle += this.turretTurnSpeed * this.turretTurnDirection;
+        this.turretTurnTo--;
+
+        this.turretAngle = this.turretAngle % 360;
+    }
+
+    setAngle(angle) {
+        this.turnTo = (360 - this.angle + angle) % 360;
+        this.turnDirection = 1;
+    }
+
+    setTurretAngle(angle) {
+        this.turretTurnTo = (360 - this.turretAngle + angle) % 360;
+        this.turretTurnDirection = 1;
     }
 
     changeThrusterPower(power) {
@@ -116,23 +163,26 @@ class Spaceship {
         this.systemPower = delta / 2;
     }
 
-    step(dl) {
+    step(dt) {
         this.repair();
-        if (this.angle !== this.turnTo) {
+
+        if (this.hitting) {
+            this.opacity = (this.opacity + 0.05) % 1;
+        } else {
+            this.opacity = 1;
+        }
+
+        if (this.turnTo > 0) {
             this.turn();
         }
 
-        if (this.turrentAngle !== this.turrentTurnTo) {
+        if (this.turretTurnTo > 0) {
             this.turnTurret();
         }
 
-        if (this.life < 25) {
-            this.broken = true;
-        } else {
-            this.broken = false;
-        }
+        this.broken = this.life < 25;
 
-        const radians = this.angle / Math.PI * 180;
+        let radians = this.angle * Math.PI / 180;
         if (this.isThrusting && !this.broken) {
             this.velX += Math.cos(radians) * (this.thrust * this.thrusterPower * this.gaz);
             this.velY += Math.sin(radians) * (this.thrust * this.thrusterPower * this.gaz);
@@ -143,12 +193,32 @@ class Spaceship {
         this.velY *= 0.98;
 
         // apply velocities
-        this.x -= this.velX;
-        this.y -= this.velY;
+        this.x += this.velX;
+        this.y += this.velY;
 
         // calc the point out in front of the ship
-        //this.px = this.x - this.pointLength * Math.cos(radians);
-        //this.py = this.y - this.pointLength * Math.sin(radians);
+        radians = this.turretAngle * Math.PI / 180;
+        this.px = this.x - this.pointLength * Math.cos(radians);
+        this.py = this.y - this.pointLength * Math.sin(radians);
+    }
+
+    render(drawer) {
+        drawer.save();
+        drawer.rotateModel(this, this.angle);
+        drawer.ctx.globalAlpha = this.opacity;
+        drawer.drawImage(this.image, 0, 0, this.image.width, this.image.height, this.x, this.y, this.width, this.height);
+        drawer.restore();
+
+        drawer.save();
+        drawer.rotateModel(this, this.turretAngle);
+        drawer.ctx.setLineDash([5, 3]);
+        drawer.drawLine(this.x + this.width / 2, this.y + this.height / 2, this.x + this.width + 25, this.y + this.height / 2, 1, 'yellow');
+        drawer.restore();
+
+        drawer.save();
+        drawer.ctx.globalAlpha = this.shieldPower;
+        drawer.drawCircle(this.x + this.width / 2, this.y + this.height / 2, this.hitbox.radius, 1, 'cyan');
+        drawer.restore();
     }
 
     info() {
@@ -158,6 +228,8 @@ class Spaceship {
             y: this.y,
             life: this.life,
             broken: this.broken,
+            inSafeZone: this.inSafeZone,
+            cargo: this.cargo,
             angle: this.angle,
             turnTo: this.turnTo,
             turnDirection: this.turnDirection,

@@ -8,8 +8,17 @@
   },
   "author": "Kevin Balicot <kevinbalicot@gmail.com>",
   "license": "MIT",
+  "publish": {
+    "ssh": {
+      "ip": "92.222.88.16",
+      "user": "root"
+    },
+    "image": "node:latest",
+    "port": "9090"
+  },
   "dependencies": {
     "http-server": "^0.11.1",
+    "penvas": "^0.6.0",
     "pxl-json-validator": "^0.2.2",
     "uuid": "^3.3.2",
     "ws": "^6.0.0",

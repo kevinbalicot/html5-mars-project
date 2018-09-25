@@ -6,6 +6,6 @@
 
     "direction": {
         "_type": "number",
-        "_default": 1
+        "_required": true
     }
 }
