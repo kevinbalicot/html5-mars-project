@@ -63,7 +63,7 @@ Pour ce faire, chaque équipe doit développer leur tableau de bord pour piloter
 
 Lorsqu'une connexion est ouverte avec le serveur, celui-ci envoie les informations du vaisseaux toutes les secondes.
 
-```JSON
+```javascript
 {
     "team": 1,                  // Numéro de l'équipe
     "angle": 0,                 // Angle de rotation du vaisseau
