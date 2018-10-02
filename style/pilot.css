@@ -45,3 +45,7 @@
 #rudderControl{
     width: 100%;
 }
+
+span.glyphicon {
+    font-size: 30px;
+}
