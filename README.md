@@ -106,6 +106,8 @@ Les vaisseaux ne peuvent pas tirer dans la zone de départ (la Terre).
 
 ## Usage
 
+Avec NodeJS
+
 ```bash
 $ git clone https://github.com/kevinbalicot/html5-mars-project.git
 $ cd html5-mars-project && npm install
@@ -113,6 +115,18 @@ $ node server.js
 ```
 
 Ouvrez votre navigateur sur http://localhost:8080 ainsi que http://localhost:8080/controller
+
+OU
+
+Avec docker
+
+```bash
+$ docker build -t mars/node .
+$ docker stack deploy -c docker-compose.yml mars
+$ sudo printf "127.0.0.1\tmars.docker" | sudo tee -a /etc/hosts
+```
+
+Ouvrez votre navigateur sur http://mars.docker ainsi que http://mars.docker/controller
 
 #### Remerciements
 
