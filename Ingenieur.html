@@ -4,12 +4,13 @@
 </head>
 <body onload="initListener()">
     <div class="slidecontainer">
-        <div id="NrgRest">Énergie Restante : </div><div id="NRG"> 0</div>
-        <p>Énergie Propulseurs:</p><p id="ThurstInfos" class="NumLvl">33</p>
+        <div id= "title"> ENGINEER : SYSTEM RESSOURCES </div>
+        <div id="NrgRest">Energie Disponible : </div><div id="NRG"> 0</div>
+        <p>Energie Propulseurs:</p><p id="ThurstInfos" class="NumLvl">33</p>
         <input type="range" min="0" max="100" value="33" id="Propulseurs" class="slider" onchange="updateValOf(this.value, 'ThurstInfos',this.id);">
-        <p>Énergie Bouclier:</p><p id="ShieldInfos" class="NumLvl">33</p>
+        <p>Energie Bouclier:</p><p id="ShieldInfos" class="NumLvl">33</p>
         <input type="range" min="0" max="100" value="33" id="Bouclier" class="slider" onchange="updateValOf(this.value, 'ShieldInfos',this.id);">
-        <p>Énergie Système Survie:</p><p id="SystemInfos" class="NumLvl">33</p>
+        <p>Energie Systeme Survie:</p><p id="SystemInfos" class="NumLvl">33</p>
         <input type="range" min="0" max="100" value="33" id="Système" class="slider" onchange="updateValOf(this.value, 'SystemInfos',this.id);">
 </body>
 </html>
