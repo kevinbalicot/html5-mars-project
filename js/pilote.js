@@ -53,3 +53,10 @@ document.addEventListener('keydown', function (event) {
             console.log(event.key);
     }
 });
+
+function loadFile(event) {
+    var output = document.getElementById('output');
+    output.src = URL.createObjectURL(event.target.files[0]);
+  };
+
+  
