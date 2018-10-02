@@ -47,6 +47,10 @@
     width: 100%;
 }
 
+#movementPower{
+    text-align: center;
+}
+
 #rudderImg{
     height: 100%;
     width: auto;
