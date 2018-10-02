@@ -14,7 +14,8 @@
     margin-top: auto;
     margin-bottom: auto;
     height: 50%;
-    width: 40%
+    width: 40%;
+    border-radius: 10px;
 }
 
 #rudder{
