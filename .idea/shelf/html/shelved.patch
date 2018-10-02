@@ -1,0 +1,109 @@
+Index: style/pilot.css
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>#container{\n    height: 100%;\n}\n\n#vue{\n    border: 1px solid white;\n    margin-top: auto;\n    margin-bottom: auto;\n    height: 50%;\n}\n\n#movement{\n    border: 1px solid white;\n    margin-top: auto;\n    margin-bottom: auto;\n    height: 50%;\n    width: 40%;\n    border-radius: 10px;\n    background-color: white;\n}\n\n#rudder{\n    border: 1px solid white;\n    margin-top: auto;\n    margin-bottom: auto;\n    height: 50%;\n    width: 40%;\n    border-radius: 10px;\n    background-color: white;\n}\n\n.btn{\n    width: 100px;\n    height: 100px;\n    font-size: 50px;\n    margin: 0 30px 0 30px;\n}\n\n#rudderDisplay{\n    width: 100%;\n    height: 75%;\n    text-align: center;\n}\n\n#rudderControl{\n    width: 100%;\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- style/pilot.css	(date 1538481935000)
++++ style/pilot.css	(date 1538481949960)
+@@ -16,7 +16,11 @@
+     height: 50%;
+     width: 40%;
+     border-radius: 10px;
++<<<<<<< HEAD
+     background-color: white;
++=======
++    background: white;
++>>>>>>> 779c864023b2daf6d5b105713936337daac60362
+ }
+ 
+ #rudder{
+@@ -26,7 +30,11 @@
+     height: 50%;
+     width: 40%;
+     border-radius: 10px;
++<<<<<<< HEAD
+     background-color: white;
++=======
++    background: white;
++>>>>>>> 779c864023b2daf6d5b105713936337daac60362
+ }
+ 
+ .btn{
+@@ -44,4 +52,8 @@
+ 
+ #rudderControl{
+     width: 100%;
++}
++
++span.glyphicon {
++    font-size: 30px;
+ }
+\ No newline at end of file
+Index: Pilote.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><html>\n<head>\n    <link rel=\"stylesheet\" type=\"text/css\" href=\"style/baseStyle.css\">\n    <link rel=\"stylesheet\" type=\"text/css\" href=\"css/bootstrap.min.css\">\n    <link rel=\"stylesheet\" type=\"text/css\" href=\"style/pilot.css\">\n</head>\n<body>\n<div id=\"container\" class=\"d-flex justify-content-around\">\n<div id=\"movement\">\n    <button type=\"button\" class=\"btn\">↑</button>\n    <button type=\"button\" class=\"btn\">↓</button>\n</div>\n<div id=\"rudder\">\n    <div id=\"rudderControl\" class=\"row justify-content-center\">\n        <button type=\"button\" class=\"btn btn-dark\">←</button>\n        <button type=\"button\" class=\"btn btn-dark\">→</button>\n    </div>\n    <div id=\"rudderDisplay\">\n        <img src=\"img/spaceship.png\" width=\"50%\">\n    </div>\n</div>\n</div>\n</body>\n</html>\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- Pilote.html	(date 1538481935000)
++++ Pilote.html	(date 1538481949966)
+@@ -1,10 +1,17 @@
+ <html>
++
+ <head>
+     <link rel="stylesheet" type="text/css" href="style/baseStyle.css">
+     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+     <link rel="stylesheet" type="text/css" href="style/pilot.css">
++
++    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
++    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
++    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+ </head>
++
+ <body>
++<<<<<<< HEAD
+ <div id="container" class="d-flex justify-content-around">
+ <div id="movement">
+     <button type="button" class="btn">↑</button>
+@@ -20,5 +27,36 @@
+     </div>
+ </div>
+ </div>
++=======
++    <div id="container" class="d-flex justify-content-around">
++        <div id="movement" class="row justify-content-center">
++            <div class="col">
++                <button type="button" class="btn btn-dark btn-sm">
++                    <span class="glyphicon glyphicon-arrow-up"></span>
++                </button>
++                <button type="button" class="btn btn-dark btn-sm">
++                    <span class="glyphicon glyphicon-arrow-down"></span>
++                </button>
++            </div>
++            <div class="col"></div>
++            <div class="col"></div>
++
++        </div>
++        <div id="rudder">
++            <div id="rudderControl" class="row justify-content-center">
++                <button type="button" class="btn btn-dark btn-sm">
++                    <span class="glyphicon glyphicon-arrow-left"></span>
++                </button>
++                <button type="button" class="btn btn-dark btn-sm">
++                    <span class="glyphicon glyphicon-arrow-right"></span>
++                </button>
++            </div>
++            <div id="rudderDisplay">
++                <img src="img/gouvernail.png" width="50%">
++            </div>
++        </div>
++    </div>
++>>>>>>> 779c864023b2daf6d5b105713936337daac60362
+ </body>
+-</html>
++
++</html>
+\ No newline at end of file

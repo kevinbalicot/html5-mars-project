@@ -16,7 +16,7 @@
     height: 50%;
     width: 40%;
     border-radius: 10px;
-    background: white;
+    background-color: white;
 }
 
 #rudder{
@@ -26,7 +26,7 @@
     height: 50%;
     width: 40%;
     border-radius: 10px;
-    background: white;
+    background-color: white;
 }
 
 .btn{
@@ -39,6 +39,7 @@
 #rudderDisplay{
     width: 100%;
     height: 75%;
+    text-align: center;
 }
 
 #rudderControl{
