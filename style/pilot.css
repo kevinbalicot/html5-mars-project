@@ -39,12 +39,14 @@
 
 #rudderDisplay{
     width: 100%;
-    height: 75%;
+    height: 65%;
     text-align: center;
 }
 
 #rudderControl{
-    width: 100%;
+    height: 30%;
+    margin-right: auto;
+    margin-left: auto;
 }
 
 #rudderImg{

@@ -22,12 +22,13 @@
         </div>
        
     </div>
-    <div id="rudder">
-        <div id="rudderControl" class="row justify-content-center">
-            <button type="button" id="rudderbtnLeft" class="btn btn-dark btn-sm" onclick="rudderLeftBtnClick()">
+    <div id="rudder" class="d-flex flex-column">
+        <div class="h1 text-center">Contrôle de la trajectoire</div>
+        <div id="rudderControl">
+            <button type="button" id="rudderbtnLeft" class="btn btn-dark" onclick="rudderLeftBtnClick()">
                 <span class="glyphicon glyphicon-arrow-left"></span>
             </button>
-            <button type="button" id="rudderbtnRight" class="btn btn-dark btn-sm" onclick="rudderRightBtnClick()">
+            <button type="button" id="rudderbtnRight" class="btn btn-dark" onclick="rudderRightBtnClick()">
                 <span class="glyphicon glyphicon-arrow-right"></span>
             </button>
         </div>
