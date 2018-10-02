@@ -1,4 +1,4 @@
-var rotation = 0;
+var rotation = 90;
 
 function rudderRightBtnClick(){
     rotation += 30;

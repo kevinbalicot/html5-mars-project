@@ -59,6 +59,7 @@
 #rudderImg{
     height: 90%;
     width: auto;
+    transform: rotate(90deg);
 }
 
 span.glyphicon {
@@ -70,6 +71,8 @@ h2{
     font-size: 24px;
     color: white !important;
 }
+
+
 
 
 #moveContainer{
