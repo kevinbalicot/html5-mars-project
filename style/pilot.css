@@ -27,6 +27,7 @@
     width: 40%;
     border-radius: 10px;
     background-color: white;
+    padding: 1%;
 }
 
 .btn{
@@ -44,6 +45,11 @@
 
 #rudderControl{
     width: 100%;
+}
+
+#rudderImg{
+    height: 100%;
+    width: auto;
 }
 
 span.glyphicon {

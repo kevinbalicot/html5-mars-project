@@ -6,7 +6,7 @@
     <link rel="stylesheet" type="text/css" href="style/pilot.css">
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="js/pilote.js"></script>
 </head>
 
 <body>
@@ -26,15 +26,15 @@
     </div>
     <div id="rudder">
         <div id="rudderControl" class="row justify-content-center">
-            <button type="button" class="btn btn-dark btn-sm">
+            <button type="button" id="rudderbtnLeft" class="btn btn-dark btn-sm" onclick="rudderLeftBtnClick()">
                 <span class="glyphicon glyphicon-arrow-left"></span>
             </button>
-            <button type="button" class="btn btn-dark btn-sm">
+            <button type="button" id="rudderbtnRight" class="btn btn-dark btn-sm" onclick="rudderRightBtnClick()">
                 <span class="glyphicon glyphicon-arrow-right"></span>
             </button>
         </div>
         <div id="rudderDisplay">
-            <img src="img/spaceship.png" width="50%">
+            <img id="rudderImg" src="img/spaceship.png" width="100px">
         </div>
     </div>
 </div>
