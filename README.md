@@ -2,11 +2,15 @@
 
 Quatre centres spatiaux en concurrence pour envoyer l’humanité sur Mars. Le projet propose à quatre équipes de développer un tableau de bord pour piloter son vaisseau et marquer des points en faisant des allers retours entre la Terre et Mars.
 
+![image demo 1](public/images/image1.png)
+
 ## But du jeu
 
 Apporter une cargaison d'humains sur Mars. Chaque aller retour fait marquer 1 point, mais attention aux astéroides ainsi qu'aux autres joueurs et leurs missiles.
 
-Pour ce faire, chaque équipe doit développer leur tableau de bord pour piloter leur vaisseau en utilisant les WebSocket pour communiquer avec le serveur. Une exemple de tableau de bord est disponible sur http://localhost/controller.
+Pour ce faire, chaque équipe doit développer leur tableau de bord pour piloter leur vaisseau en utilisant les WebSocket pour communiquer avec le serveur. Une exemple de tableau de bord est disponible sur [http://92.222.88.16:9090/controller](http://92.222.88.16:9090/controller) et le plateau de jeu est disponible sur [http://92.222.88.16:9090](http://92.222.88.16:9090).
+
+![image demo 2](public/images/image2.png)
 
 ## Les commandes
 
