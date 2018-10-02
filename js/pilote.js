@@ -28,5 +28,5 @@ document.getElementById("movementPower").value = movementPowerValue;
 
 if(movementPowerValue<0){
     document.getElementById("movementPower").value = "0";
-}
+    }
 }
