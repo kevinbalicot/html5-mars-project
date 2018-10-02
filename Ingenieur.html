@@ -2,7 +2,7 @@
 <head>
         <link rel="stylesheet" type="text/css" href="style/ingenieur.css">
 </head>
-<body>
+<body onload="initListener()">
     <div class="slidecontainer">
         <div id="NrgRest">Énergie Restante : </div><div id="NRG"> 0</div>
         <p>Énergie Propulseurs:</p><p id="ThurstInfos" class="NumLvl">33</p>
@@ -15,11 +15,12 @@
 </html>
 
 <script>
-   
 function updateValOf (val, aimID, slideID ) {
-    if(checkEnergy() < -100){
-        document.getElementById(aimID).innerHTML=33;
-        document.getElementById(slideID).value=33;
+
+    if(checkEnergy() > 100){;
+        document.getElementById(slideID).value = 0;
+        document.getElementById('NRG').innerHTML = 100 - (parseInt(document.getElementById("Propulseurs").value) + parseInt(document.getElementById("Bouclier").value) + parseInt(document.getElementById("Système").value));;
+        document.getElementById(aimID).innerHTML = 0;
         document.getElementById('NrgRest').style.background= 'red';
         document.getElementById('NRG').style.background= 'red';
         setTimeout(()=>{document.getElementById('NrgRest').style.background= '#01700e';
@@ -33,8 +34,42 @@ function updateValOf (val, aimID, slideID ) {
 function checkEnergy () {
     var TotalEnergy = 100 - (parseInt(document.getElementById("Propulseurs").value) + parseInt(document.getElementById("Bouclier").value) + parseInt(document.getElementById("Système").value));
     var EnergyUsed = parseInt(document.getElementById("Propulseurs").value) + parseInt(document.getElementById("Bouclier").value) + parseInt(document.getElementById("Système").value);
-   console.log({TotalEnergy});
-   console.log({EnergyUsed});
-    return parseInt(TotalEnergy-EnergyUsed);
+    return parseInt(EnergyUsed+Math.abs(TotalEnergy));
+}
+
+function initListener() {
+    document.addEventListener('keydown', (event) => {
+    if(event.key == "7" && document.getElementById("Propulseurs").value > 0) {
+        document.getElementById("Propulseurs").value--;
+        document.getElementById("ThurstInfos").innerHTML--;
+        document.getElementById('NRG').innerHTML++;
+    }
+    if(event.key == "9" && parseInt(document.getElementById('NRG').innerHTML) > 0) {
+        document.getElementById("Propulseurs").value++;
+        document.getElementById("ThurstInfos").innerHTML++;
+        document.getElementById('NRG').innerHTML--;
+    }
+    if(event.key == "4" && document.getElementById("Bouclier").value > 0) {
+        document.getElementById("Bouclier").value--;
+        document.getElementById("ShieldInfos").innerHTML--;
+        document.getElementById('NRG').innerHTML++;
+    }
+    if(event.key == "6" && parseInt(document.getElementById('NRG').innerHTML) > 0) {
+        document.getElementById("Bouclier").value++;
+        document.getElementById("ShieldInfos").innerHTML++;
+        document.getElementById('NRG').innerHTML--;
+    }
+    if(event.key == "1" && document.getElementById("Système").value > 0) {
+        document.getElementById("Système").value--;
+        document.getElementById("SystemInfos").innerHTML--;
+        document.getElementById('NRG').innerHTML++;
+    }
+    if(event.key == "3" && parseInt(document.getElementById('NRG').innerHTML) > 0) {
+        document.getElementById("Système").value++;
+        document.getElementById("SystemInfos").innerHTML++;
+        document.getElementById('NRG').innerHTML--;
+    }
+});
+
 }
 </script>
