@@ -1,0 +1,26 @@
+#container{
+    clear: both;
+}
+
+#vue{
+    display: inline-block;
+    margin:0 auto;
+    width: 40%;
+    border: 1px solid white;
+}
+
+#movement{
+    float: left;
+    width: 30%;
+    border: 1px solid white;
+}
+
+#rudder{
+    float: right;
+    width: 28%;
+    border: 1px solid white;
+}
+
+.movementBtn{
+    
+}
