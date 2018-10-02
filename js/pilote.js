@@ -30,4 +30,4 @@ if(movementPowerValue<0){
     document.getElementById("movementPower").value = "0";
     }
 }
-}
+
