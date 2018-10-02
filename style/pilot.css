@@ -16,6 +16,7 @@
     height: 50%;
     width: 40%;
     border-radius: 10px;
+    background: white;
 }
 
 #rudder{
@@ -24,6 +25,8 @@
     margin-bottom: auto;
     height: 50%;
     width: 40%;
+    border-radius: 10px;
+    background: white;
 }
 
 .btn{
@@ -40,4 +43,8 @@
 
 #rudderControl{
     width: 100%;
+}
+
+span.glyphicon {
+    font-size: 30px;
 }

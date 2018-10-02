@@ -1,24 +1,44 @@
 <html>
+
 <head>
     <link rel="stylesheet" type="text/css" href="style/baseStyle.css">
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="style/pilot.css">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
+
 <body>
-<div id="container" class="d-flex justify-content-around">
-<div id="movement">
-    <button type="button" class="btn">↑</button>
-    <button type="button" class="btn">↓</button>
-</div>
-<div id="rudder">
-    <div id="rudderControl" class="row justify-content-center">
-        <button type="button" class="btn">←</button>
-        <button type="button" class="btn">→</button>
+    <div id="container" class="d-flex justify-content-around">
+        <div id="movement" class="row justify-content-center">
+            <div class="col">
+                <button type="button" class="btn btn-dark btn-sm">
+                    <span class="glyphicon glyphicon-arrow-up"></span>
+                </button>
+                <button type="button" class="btn btn-dark btn-sm">
+                    <span class="glyphicon glyphicon-arrow-down"></span>
+                </button>
+            </div>
+            <div class="col"></div>
+            <div class="col"></div>
+
+        </div>
+        <div id="rudder">
+            <div id="rudderControl" class="row justify-content-center">
+                <button type="button" class="btn btn-dark btn-sm">
+                    <span class="glyphicon glyphicon-arrow-left"></span>
+                </button>
+                <button type="button" class="btn btn-dark btn-sm">
+                    <span class="glyphicon glyphicon-arrow-right"></span>
+                </button>
+            </div>
+            <div id="rudderDisplay">
+                <img src="img/gouvernail.png" width="50%">
+            </div>
+        </div>
     </div>
-    <div id="rudderDisplay">
-        <img src="img/gouvernail.png" width="50%">
-    </div>
-</div>
-</div>
 </body>
+
 </html>
