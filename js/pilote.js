@@ -30,3 +30,26 @@ if(movementPowerValue<0){
     document.getElementById("movementPower").value = "0";
     }
 }
+
+document.addEventListener('keydown', function (event) {
+    switch (event.key){
+        case 'ArrowLeft':
+        case 'q':
+            rudderLeftBtnClick();
+            break;
+        case 'ArrowRight':
+        case 'd':
+            rudderRightBtnClick();
+            break;
+        case 'ArrowUp':
+        case 'z':
+            moveUp();
+            break;
+        case 'ArrowDown':
+        case 's':
+            moveDown();
+            break;
+        default:
+            console.log(event.key);
+    }
+});
