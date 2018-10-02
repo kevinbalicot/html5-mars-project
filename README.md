@@ -2,19 +2,19 @@
 
 Quatre centres spatiaux en concurrence pour envoyer l’humanité sur Mars. Le projet propose à quatre équipes de développer un tableau de bord pour piloter son vaisseau et marquer des points en faisant des allers retours entre la Terre et Mars.
 
-## But du jeu
+## But du jeu
 
-Apporter une cargaison d'humains sur Mars. Chaque aller retour fait marquer 1 point, mais attention aux astéroides ainsi qu'autres joueurs et leurs missiles.
+Apporter une cargaison d'humains sur Mars. Chaque aller retour fait marquer 1 point, mais attention aux astéroides ainsi qu'aux autres joueurs et leurs missiles.
 
-Pour ce faire, chaque équipe doit développer leur tableau de bord pour piloter leur vaisseau en utilisant les WebSocket pour communiqué avec le serveur. Une exemple est disponible sur http://localhost/controller.
+Pour ce faire, chaque équipe doit développer leur tableau de bord pour piloter leur vaisseau en utilisant les WebSocket pour communiquer avec le serveur. Une exemple de tableau de bord est disponible sur http://localhost/controller.
 
-## Les commandes
+## Les commandes
 
 ### Pilote
 
  - `spaceship:move` Déplace le vaisseau en ligne droite
     * time : En milliseconde, temps que le vaisseau se déplace
-    * power : Entre ]0;1] puissance des propulseur
+    * power : Entre ]0;1] puissance des propulseurs
 
 
  - `spaceship:rotate` Tourne le vaisseau sur lui même
@@ -25,7 +25,7 @@ Pour ce faire, chaque équipe doit développer leur tableau de bord pour piloter
  - `spaceship:turnto` Définit l'angle de rotation du vaisseau
     * angle : En degré, définit l'angle de rotation
 
-### Artilleur
+### Artilleur
 
  - `spaceship:turret:rotate` Tourne la tourelle du vaisseau
     * angle : En degré, angle de rotation
@@ -39,7 +39,7 @@ Pour ce faire, chaque équipe doit développer leur tableau de bord pour piloter
  - `spaceship:turret:fire` Fait tirer la tourelle
     * power : Entre ]0;1] puissance du missile
 
-### Ingénieur
+### Ingénieur
 
  - `spaceship:thruster:power` Définit le niveau d'énergie des propulseurs
     * power : Entre ]0;1] niveau d'énergie
@@ -52,7 +52,7 @@ Pour ce faire, chaque équipe doit développer leur tableau de bord pour piloter
  - `spaceship:system:power` Définit le niveau d'énergie du système de survie
     * power : Entre ]0;1] niveau d'énergie
 
-### Exemple
+### Exemple
 
 ```javascript
     const ws = new WebSocket(`ws://localhost:8080?team=1&username=vek&job=Captain`);
@@ -88,7 +88,7 @@ Lorsqu'une connexion est ouverte avec le serveur, celui-ci envoie les informatio
 
 ## Informations diverses
 
-Lors qu'un vaisseau passe en dessous des 25 pts de vie, celui-ci ne peut plus bouger et doit être réparé.
+Lorsqu'un vaisseau passe en dessous des 25 pts de vie, celui-ci ne peut plus bouger et doit être réparé.
 
 Plus un missile est tiré puissamment, plus le temps d'attente de recharge est long, mais le missile gagne en rapidité.
 
@@ -109,3 +109,7 @@ $ node server.js
 ```
 
 Ouvrez votre navigateur sur http://localhost:8080 ainsi que http://localhost:8080/controller
+
+#### Remerciements
+
+Merci à [@LapierreCarlyne](https://twitter.com/LapierreCarlyne) pour les designs.
