@@ -59,6 +59,6 @@ function loadFile(event) {
     output.src = URL.createObjectURL(event.target.files[0]);
   };
 
-  function Connection(){
-      
-  }
+function Connection(){
+    window.location = document.getElementById("jobSelect").value+'.html?team='+document.getElementById("teamSelect").value+'&username='+document.getElementById("usr").value;
+}

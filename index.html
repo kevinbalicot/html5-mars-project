@@ -9,40 +9,41 @@
 
 <body>
     <div id="homepageContainer">
-        <div class="form-group">
-            <label for="usr" id="usrLabel">Username:</label>
-            <input type="text" class="form-control" id="usr">
-        </div>
-        <div class="form-group">
-            <label for="jobSelect" id="jobSelectLabel">Job:</label>
-            <select class="form-control" id="jobSelect">
-                <option>Captain</option>
-                <option>Pilot</option>
-                <option>Gunner</option>
-                <option>Engineer</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label for="teamSelect" id="teamSelectLabel">Team:</label>
-            <select class="form-control" id="teamSelect">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-            </select>
-        </div>
-        <div class="form-group">
-                <label for="avatar" id="avatarLabel">Avatar:</label>
-                
-                <input type="file" id="avatar" name="avatar" accept="image/*" onchange="loadFile(event)">
-                <img id="output" class="img-thumbnail"/>
-                
-                
+            <form>
+            <div class="form-group">
+                <label for="usr" id="usrLabel">Username:</label>
+                <input type="text" class="form-control" id="usr">
             </div>
-            
-                    <button type="button" class="btn btn-default btn-sm" onclick="Connection()">Connect</button>
-         
-    </div>
+            <div class="form-group">
+                <label for="jobSelect" id="jobSelectLabel">Job:</label>
+                <select class="form-control" id="jobSelect">
+                    <option>Capitaine</option>
+                    <option>Pilote</option>
+                    <option>Artilleur</option>
+                    <option>Ingenieur</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="teamSelect" id="teamSelectLabel">Team:</label>
+                <select class="form-control" id="teamSelect">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                </select>
+            </div>
+            <div class="form-group">
+                    <label for="avatar" id="avatarLabel">Avatar:</label>
+
+                    <input type="file" id="avatar" name="avatar" accept="image/*" onchange="loadFile(event)">
+                    <img id="output" class="img-thumbnail"/>
+
+
+                </div>
+
+                        <button type="button" class="btn btn-default btn-sm" onclick="Connection()">Connect</button>
+            </form>
+        </div>
 </body>
 
 </html>
