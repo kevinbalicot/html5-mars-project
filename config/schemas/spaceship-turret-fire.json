@@ -1,6 +1,8 @@
 {
     "power": {
         "_type": "number",
-        "_required": true
+        "_required": true,
+        "_exclusiveMinimum": 0,
+        "_maximum": 1
     }
 }

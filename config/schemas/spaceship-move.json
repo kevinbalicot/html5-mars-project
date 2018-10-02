@@ -1,11 +1,15 @@
 {
     "time": {
         "_type": "number",
-        "_required": true
+        "_required": true,
+        "_minimum": 100,
+        "_maximum": 100000
     },
 
     "power": {
         "_type": "number",
-        "_default": 1
+        "_default": 1,
+        "_exclusiveMinimum": 0,
+        "_maximum": 1
     }
 }

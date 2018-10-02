@@ -492,6 +492,11 @@
 
                 ws.onmessage = (message) => {
                     const { name, data, error } = JSON.parse(message.data);
+
+                    if (error) {
+                        return console.log(error);
+                    }
+
                     spaceshipData = data;
 
                     document.getElementById('spaceship-life').innerHTML = `${data.life}`;
