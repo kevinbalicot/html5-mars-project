@@ -1,63 +1,40 @@
 <html>
 <head>
-<link rel="stylesheet" href="//stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="style/ingenieur.css">
 </head>
 <body>
     <div class="slidecontainer">
-        <p id="ThurstInfos">Énergie Propulseurs:</p>
-        <input type="range" min="1" max="100" value="50" class="slider" id="ThurstPow">
-        <p id="ShieldInfos">Énergie Bouclier:</p>
-        <input type="range" min="1" max="100" value="50" class="slider" id="ShieldPow">
-        <p id="SystemInfos">Énergie Système Survie:</p>
-        <input type="range" min="1" max="100" value="50" class="slider" id="SurvPow">
+        <div id="NrgRest">Énergie Restante : </div><div id="NRG"> 0</div>
+        <p>Énergie Propulseurs:</p><p id="ThurstInfos" class="NumLvl">33</p>
+        <input type="range" min="0" max="100" value="33" id="Propulseurs" class="slider" onchange="updateValOf(this.value, 'ThurstInfos',this.id);">
+        <p>Énergie Bouclier:</p><p id="ShieldInfos" class="NumLvl">33</p>
+        <input type="range" min="0" max="100" value="33" id="Bouclier" class="slider" onchange="updateValOf(this.value, 'ShieldInfos',this.id);">
+        <p>Énergie Système Survie:</p><p id="SystemInfos" class="NumLvl">33</p>
+        <input type="range" min="0" max="100" value="33" id="Système" class="slider" onchange="updateValOf(this.value, 'SystemInfos',this.id);">
 </body>
 </html>
 
-<style>
-.slider {
-    -webkit-appearance: none;
-    appearance: none;
-    background: #e0e0e0;
-    outline: none;
-    opacity: 0.7;
-    width: 100%;
-    height: 25px; 
-    margin: 0;
-    padding: 5px;
-}
-.slider:hover {
-    opacity: 1;
-}
-.slider::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 25px;
-    height: 35px;
-    background: #aeaeff;
-    cursor: pointer;
-}
-
-.slidecontainer{
-    width: 50%;
-    background: #02001a;
-    border: solid 3px grey;
-    border-radius: 10px;
-    margin: auto;
-    padding: 10px;
-}
-
-.slidecontainer p{
-    text-align: center;
-    color: white;
-    padding: 10px;
-}
-</style>
-
 <script>
-var valThurst = document.getElementById("ThurstPow").value;
-var valShield = document.getElementById("ShieldPow").value;
-var valSurv = document.getElementById("SurvPow").value;
-document.getElementById("ThurstInfos").innerHTML += valThurst;
-document.getElementById("ShieldInfos").innerHTML += valShield;
-document.getElementById("SystemInfos").innerHTML += valSurv;
+   
+function updateValOf (val, aimID, slideID ) {
+    if(checkEnergy() < -100){
+        document.getElementById(aimID).innerHTML=33;
+        document.getElementById(slideID).value=33;
+        document.getElementById('NrgRest').style.background= 'red';
+        document.getElementById('NRG').style.background= 'red';
+        setTimeout(()=>{document.getElementById('NrgRest').style.background= '#01700e';
+        document.getElementById('NRG').style.background= '#01700e';},1000)
+    } else {
+        document.getElementById(aimID).innerHTML=val;
+        document.getElementById('NRG').innerHTML= 100 - (parseInt(document.getElementById("Propulseurs").value) + parseInt(document.getElementById("Bouclier").value) + parseInt(document.getElementById("Système").value));
+    }
+}
+
+function checkEnergy () {
+    var TotalEnergy = 100 - (parseInt(document.getElementById("Propulseurs").value) + parseInt(document.getElementById("Bouclier").value) + parseInt(document.getElementById("Système").value));
+    var EnergyUsed = parseInt(document.getElementById("Propulseurs").value) + parseInt(document.getElementById("Bouclier").value) + parseInt(document.getElementById("Système").value);
+   console.log({TotalEnergy});
+   console.log({EnergyUsed});
+    return parseInt(TotalEnergy-EnergyUsed);
+}
 </script>
