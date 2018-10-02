@@ -1,0 +1,91 @@
+body {
+    background-color: #1c1111;
+}
+
+.health {
+    text-align: center;
+    color: #29ff01;
+    margin: auto;
+    margin-top: 1%;
+    margin-bottom: 1%;
+    padding-top: 2%;
+    padding-bottom: 2%;
+    font-size: 40px;
+    border: 5px solid grey;
+    border-radius: 10px;
+    background-color: #1C1819;
+}
+
+.panel-top {
+
+    margin: 2%;
+    border: 5px solid grey;
+    border-radius: 10px;
+    background-color: #1C1819;
+}
+
+.ship {
+    text-align: center;
+    color: #29ff01;
+    margin: auto;
+    margin-top: 1%;
+    margin-bottom: 1%;
+    padding-top: 2%;
+    padding-bottom: 2%;
+    font-size: 45px;
+    border: 5px solid grey;
+    border-radius: 10px;
+    background-color: #1C1819;
+
+}
+
+.power-level {
+
+    color: #1C1819;
+    text-align: center;
+    display: block;
+    margin: 10px;
+    border-radius: 40%;
+    width: 100%;
+    font-size: 15px;
+}
+
+.myBar {
+    border-radius: 10px;
+    margin-bottom: 2.5%;
+    height: 60px;
+    text-align:center;
+
+}
+
+.group-bar p {
+    margin-top: 2.5%;
+    text-align: center;
+}
+
+.shield p {
+    color: deepskyblue;
+}
+
+.shield .myBar {
+    background-color: deepskyblue;
+}
+
+.syspower p {
+    color: #29ff01;
+}
+
+.syspower .myBar {
+    background-color: #29ff01;
+}
+
+.thruster p {
+    color: yellow;
+}
+.thruster .myBar {
+    background-color: yellow;
+}
+@keyframes colorblink {
+    0% { }
+    50% { background-color:#1c1111; }
+}
