@@ -59,4 +59,6 @@ function loadFile(event) {
     output.src = URL.createObjectURL(event.target.files[0]);
   };
 
-  
+  function Connection(){
+      
+  }
