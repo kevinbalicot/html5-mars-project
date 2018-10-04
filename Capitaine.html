@@ -9,6 +9,8 @@
 </head>
 <body>
 <div class="row firstline">
+    <p class="turret panel-top col-sm-1">N</p>
+    <p class="gunner panel-top col-sm-4" > STATUS: LOADED </p>
     <p class="ship panel-top col-sm-1">N</p>
     <p class="health col-sm-1"></p>
     <p class="ship panel-top col-sm-1">180°</p>
@@ -69,6 +71,7 @@
             document.getElementsByClassName("ship")[0].textContent = "E";
         document.getElementsByClassName("ship")[1].textContent = angle + "°";
     };
+
     var hpupdate = function (life) {
         console.log(life)
         if (life < 100) {
@@ -229,13 +232,36 @@
 
     };
 
+    var gunnerupdate = function (reloading, reloaded, turret) {
+        document.getElementsByClassName("turret")[0].textContent = turret + "°"
+        if (reloading == true) {
+            document.getElementsByClassName("gunner")[0].textContent = "STATUS: RELOADING";
+            document.getElementsByClassName("gunner")[0].style.borderColor = "yellow";
+            document.getElementsByClassName("gunner")[0].style.color = "yellow";
+            document.getElementsByClassName("turret")[0].style.borderColor = "yellow";
+            document.getElementsByClassName("turret")[0].style.color = "yellow";
+
+        }
+        if (reloaded == true) {
+            document.getElementsByClassName("gunner")[0].textContent = "STATUS: RELOADED";
+            document.getElementsByClassName("gunner")[0].style.borderColor = "#29ff01";
+            document.getElementsByClassName("gunner")[0].style.color = "#29ff01";
+            document.getElementsByClassName("turret")[0].style.borderColor = "#29ff01";
+            document.getElementsByClassName("turret")[0].style.color = "#29ff01";
+        }
+    }
+
     var isBroken="false";
-    var life = 25;
+    var life = 100;
     var angle = 127;
-    var shield=0;
+    var shield=33.3;
     var syspower=66.6;
     var thruster=33.3;
+    var reloading = false;
+    var reloaded= true;
+    var turret = "267"
 
+    gunnerupdate(reloading,reloaded,turret)
     brokenupdate(isBroken);
     shieldupdate(shield);
     syspowerupdate(syspower);
