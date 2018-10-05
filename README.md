@@ -106,7 +106,7 @@ Les vaisseaux ne peuvent pas tirer dans la zone de départ (la Terre).
 
 ## Usage
 
-Avec NodeJS
+Avec Node JS
 
 ```bash
 $ git clone https://github.com/kevinbalicot/html5-mars-project.git
