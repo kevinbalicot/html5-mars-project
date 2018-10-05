@@ -1,17 +1,49 @@
 <html>
+
 <head>
+    <link rel="stylesheet" type="text/css" href="style/baseStyle.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="style/pilot.css">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="js/pilote.js"></script>
 </head>
+
 <body>
-<div id="container">
-    <div id="movement"></div>
-    <div id="vue"></div>
-    <div id="rudder">
-        <div id="rudderControl">
-            <button class="rudderbtn" type="button"><</button>
-            <button class="rudderbtn" type="button">></button>
+    <h2>Pilot Commands</h2>
+<div id="container" class="d-flex justify-content-around">
+    <div id="movement" class="row justify-content-center">
+            
+        <div id="moveContainer">
+                <div class="row">
+            <button type="button" class="btn btn-dark btn-sm" onclick="moveUp()">
+                <span class="glyphicon glyphicon-arrow-up"></span>
+            </button>
         </div>
+            <div class="row">
+            <input type="number" id="movementPower" name="height" value="0" disabled/>
+        </div>
+            <div class="row">
+            <button type="button" class="btn btn-dark btn-sm" onclick="moveDown()">
+                <span class="glyphicon glyphicon-arrow-down"></span>
+            </button>
+        </div>
+        </div>
+       
+    </div>
+    <div id="rudder" class="d-flex flex-column">
+        <div class="h1 text-center">Trajectory Control</div>
+        <div id="rudderControl">
+            <button type="button" id="rudderbtnLeft" class="btn btn-dark" onclick="rudderLeftBtnClick()">
+                <span class="glyphicon glyphicon-arrow-left"></span>
+            </button>
+            <button type="button" id="rudderbtnRight" class="btn btn-dark" onclick="rudderRightBtnClick()">
+                <span class="glyphicon glyphicon-arrow-right"></span>
+            </button>
+        </div>
+        <br>
         <div id="rudderDisplay">
-            <img src="img/gouvernail.png">
+            <img id="rudderImg" src="img/spaceship.png">
         </div>
     </div>
 </div>
