@@ -92,9 +92,9 @@ wss.on('connection', (client, req) => {
     }
 
     client.on('message', (message) => {
-        const { name, data } = JSON.parse(message);
-
         try {
+            const { name, data } = JSON.parse(message);
+
             if (validator.hasSchema(name)) {
                 validator.validate(data, name);
             }
