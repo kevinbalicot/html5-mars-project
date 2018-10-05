@@ -1,5 +1,6 @@
 body{
-    background: #07011b !important;
+    background-image: url("../img/space_11.jpg");
+    background-size: cover;
 }
 
 #homepageContainer{

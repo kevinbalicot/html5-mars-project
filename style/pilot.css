@@ -81,3 +81,7 @@ h2{
     margin-top: auto;
     margin-bottom: auto;
 }
+
+body{
+    background-image: url("../img/space_11.jpg");
+}

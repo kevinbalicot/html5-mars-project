@@ -53,12 +53,3 @@ document.addEventListener('keydown', function (event) {
             console.log(event.key);
     }
 });
-
-function loadFile(event) {
-    var output = document.getElementById('output');
-    output.src = URL.createObjectURL(event.target.files[0]);
-  };
-
-function Connection(){
-    window.location = document.getElementById("jobSelect").value+'.html?team='+document.getElementById("teamSelect").value+'&username='+document.getElementById("usr").value;
-}
