@@ -49,7 +49,6 @@ document.addEventListener('keydown', function (event) {
         case 's':
             moveDown();
             break;
-        default:
-            console.log(event.key);
     }
 });
+
