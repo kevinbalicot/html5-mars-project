@@ -1,1 +1,119 @@
+<html>
+<head>
+        <link rel="stylesheet" type="text/css" href="style/ingenieur.css">
+</head>
+<body onload="initListener()">
+	<div class="commandes">
+		<h3>Vider l'energie</h3>
+		<p><h4>A</h4> (propulseurs) | <h4>Q</h4> (bouclier) | <h4>W</h4> (survie)</p>
+		<h3>Remplir avec l'energie restante</h3>
+		<p><h4>R</h4> (propulseurs) | <h4>F</h4> (bouclier) | <h4>V</h4> (survie)</p>
+		<h3>+1 Energie</h3>
+		<p><h4>E</h4> (propulseurs) | <h4>D</h4> (bouclier) | <h4>C</h4> (survie)</p>
+		<h3>-1 Energie</h3>
+		<p><h4>Z</h4> (propulseurs) | <h4>S</h4> (bouclier) | <h4>X</h4> (survie)</p>
+	</div>
+	
+    <div class="slidecontainer">
+        <div id= "title"> ENGINEER : SYSTEM RESSOURCES </div>
+        <div id="NrgRest">Energie Disponible : </div><div id="NRG"> 0</div>
+        <p>Energie Propulseurs:</p><p id="ThurstInfos" class="NumLvl">33</p>
+        <input type="range" min="0" max="100" value="33" id="Propulseurs" class="slider" onchange="updateValOf(this.value, 'ThurstInfos',this.id);">
+        <p>Energie Bouclier:</p><p id="ShieldInfos" class="NumLvl">33</p>
+        <input type="range" min="0" max="100" value="33" id="Bouclier" class="slider" onchange="updateValOf(this.value, 'ShieldInfos',this.id);">
+        <p>Energie Systeme Survie:</p><p id="SystemInfos" class="NumLvl">33</p>
+        <input type="range" min="0" max="100" value="33" id="Système" class="slider" onchange="updateValOf(this.value, 'SystemInfos',this.id);">
+	</div>
 
+</body>
+</html>
+
+<script>
+function updateValOf (val, aimID, slideID ) {
+
+    if(checkEnergy() > 100){;
+        document.getElementById(slideID).value = 0;
+        document.getElementById('NRG').innerHTML = 100 - (parseInt(document.getElementById("Propulseurs").value) + parseInt(document.getElementById("Bouclier").value) + parseInt(document.getElementById("Système").value));;
+        document.getElementById(aimID).innerHTML = 0;
+        document.getElementById('NrgRest').style.background= 'red';
+        document.getElementById('NRG').style.background= 'red';
+        setTimeout(()=>{document.getElementById('NrgRest').style.background= '#01700e';
+        document.getElementById('NRG').style.background= '#01700e';},1000)
+    } else {
+        document.getElementById(aimID).innerHTML=val;
+        document.getElementById('NRG').innerHTML= 100 - (parseInt(document.getElementById("Propulseurs").value) + parseInt(document.getElementById("Bouclier").value) + parseInt(document.getElementById("Système").value));
+    }
+}
+
+function checkEnergy () {
+    var TotalEnergy = 100 - (parseInt(document.getElementById("Propulseurs").value) + parseInt(document.getElementById("Bouclier").value) + parseInt(document.getElementById("Système").value));
+    var EnergyUsed = parseInt(document.getElementById("Propulseurs").value) + parseInt(document.getElementById("Bouclier").value) + parseInt(document.getElementById("Système").value);
+    return parseInt(EnergyUsed+Math.abs(TotalEnergy));
+}
+
+function initListener() {
+    document.addEventListener('keydown', (event) => {
+    if(event.key == "z" && document.getElementById("Propulseurs").value > 0) {
+        document.getElementById("Propulseurs").value--;
+        document.getElementById("ThurstInfos").innerHTML--;
+        document.getElementById('NRG').innerHTML++;
+    }
+    if(event.key == "e" && parseInt(document.getElementById('NRG').innerHTML) > 0) {
+        document.getElementById("Propulseurs").value++;
+        document.getElementById("ThurstInfos").innerHTML++;
+        document.getElementById('NRG').innerHTML--;
+    }
+    if(event.key == "s" && document.getElementById("Bouclier").value > 0) {
+        document.getElementById("Bouclier").value--;
+        document.getElementById("ShieldInfos").innerHTML--;
+        document.getElementById('NRG').innerHTML++;
+    }
+    if(event.key == "d" && parseInt(document.getElementById('NRG').innerHTML) > 0) {
+        document.getElementById("Bouclier").value++;
+        document.getElementById("ShieldInfos").innerHTML++;
+        document.getElementById('NRG').innerHTML--;
+    }
+    if(event.key == "x" && document.getElementById("Système").value > 0) {
+        document.getElementById("Système").value--;
+        document.getElementById("SystemInfos").innerHTML--;
+        document.getElementById('NRG').innerHTML++;
+    }
+    if(event.key == "c" && parseInt(document.getElementById('NRG').innerHTML) > 0) {
+        document.getElementById("Système").value++;
+        document.getElementById("SystemInfos").innerHTML++;
+        document.getElementById('NRG').innerHTML--;
+    }
+	if(event.key == "r") {
+        document.getElementById("Propulseurs").value = (parseInt(document.getElementById("Propulseurs").value) + parseInt(document.getElementById('NRG').innerHTML)).toString();
+        document.getElementById("ThurstInfos").innerHTML=document.getElementById("Propulseurs").value;
+        document.getElementById('NRG').innerHTML=0;
+    }
+	if(event.key == "f") {
+        document.getElementById("Bouclier").value = (parseInt(document.getElementById("Bouclier").value) + parseInt(document.getElementById('NRG').innerHTML)).toString();
+        document.getElementById("ShieldInfos").innerHTML=document.getElementById("Bouclier").value;
+        document.getElementById('NRG').innerHTML=0;
+    }
+	if(event.key == "v") {
+        document.getElementById("Système").value = (parseInt(document.getElementById("Système").value) + parseInt(document.getElementById('NRG').innerHTML)).toString();
+        document.getElementById("SystemInfos").innerHTML=document.getElementById("Système").value;
+        document.getElementById('NRG').innerHTML=0;
+    }
+	if(event.key == "a") {
+		document.getElementById('NRG').innerHTML = (parseInt(document.getElementById('NRG').innerHTML) + parseInt(document.getElementById("Propulseurs").value)).toString();
+        document.getElementById("Propulseurs").value = 0;
+        document.getElementById("ThurstInfos").innerHTML=document.getElementById("Propulseurs").value;    
+    }
+	if(event.key == "q") {
+		document.getElementById('NRG').innerHTML = (parseInt(document.getElementById('NRG').innerHTML) + parseInt(document.getElementById("Bouclier").value)).toString();
+        document.getElementById("Bouclier").value = 0;
+        document.getElementById("ShieldInfos").innerHTML=document.getElementById("Bouclier").value;    
+    }
+	if(event.key == "w") {
+		document.getElementById('NRG').innerHTML = (parseInt(document.getElementById('NRG').innerHTML) + parseInt(document.getElementById("Système").value)).toString();
+        document.getElementById("Système").value = 0;
+        document.getElementById("SystemInfos").innerHTML=document.getElementById("Système").value;    
+    }
+});
+
+}
+</script>
