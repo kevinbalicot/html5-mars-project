@@ -21,6 +21,17 @@ class Chat {
             message
         });
 
+        setTimeout(() => {
+            if (this.items.length) {
+                this.items.splice(0, 1);
+                this.refreshView();
+            }
+        }, 2000);
+
+        if (this.items.length > 10) {
+            this.items.shift();
+        }
+
         this.refreshView();
     }
 
@@ -28,10 +39,10 @@ class Chat {
         this.container.innerHTML = null;
         this.items.forEach(({ username, job, team, avatar, message }) => {
             const card = document.createElement('div');
-            card.className = 'card mb-2';
+            card.className = 'card mb-2 ' + message.replace(/:/g, '-');
             card.innerHTML = `
                 <div class="card-body">
-                    <img class="float-left avatar" src="${avatar}">
+                    ${!!avatar ? '<img class="float-left avatar" src="' + avatar + '">' : ''}
                     ${username} [${job}]: ${message}
                 </div>
             `;

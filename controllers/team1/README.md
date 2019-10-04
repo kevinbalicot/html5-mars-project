@@ -1,3 +1,0 @@
-# Auteurs
-
-Kevin Balicot

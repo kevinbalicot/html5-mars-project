@@ -1,7 +1,7 @@
 const url = require('url');
 const fs = require('fs');
 const uuid = require('uuid/v4');
-const Validator = require('pxl-json-validator');
+const Validator = require('@beelab/json-validator');
 
 const { Server } = require('ws');
 const { createApp, createServer } = require('yion');
@@ -44,8 +44,8 @@ wss.subscribe = function(name, callback) {
  * Return master client
  * @return {Client}
  */
-wss.getMaster = function() {
-    return Array.from(this.clients).find(client => client.type && client.type === 'master');
+wss.getMasters = function() {
+    return Array.from(this.clients).filter(client => client.type && client.type === 'master');
 };
 
 /**
@@ -71,7 +71,7 @@ wss.getTeamClients = function(team) {
  * @param {Object} data
  * @param {Client} [fromClient=null]
  */
-wss.sendToClient = function(toClient, name, data, fromClient = null) {
+wss.sendToClients = function(toClients, name, data, fromClient = null) {
     if (null !== fromClient) {
         const { id, username, job, team, avatar } = fromClient;
 
@@ -80,7 +80,11 @@ wss.sendToClient = function(toClient, name, data, fromClient = null) {
 
     const message = JSON.stringify({ name, data });
 
-    toClient.send(message);
+    if (!Array.isArray(toClients)) {
+        toClients = [toClients];
+    }
+
+    toClients.forEach(client => client.send(message));
 };
 
 wss.on('connection', (client, req) => {
@@ -93,13 +97,28 @@ wss.on('connection', (client, req) => {
 
     client.on('message', (message) => {
         try {
-            const { name, data } = JSON.parse(message);
+            JSON.parse(message);
+        } catch(e) {
+            console.error(e.message);
+        }
 
+        const { name, data } = JSON.parse(message);
+
+        if (name !== 'spaceship:info') {
+            console.log(`${client.team} ${client.username} : ${name}`, data);
+        }
+
+        if (name !== 'spaceship:info' && client.lastMessage && (Date.now() - client.lastMessage) < 0.5) {
+            return;
+        }
+
+        try {
             if (validator.hasSchema(name)) {
                 validator.validate(data, name);
             }
 
             wss.emit(name, data, client, wss);
+            client.lastMessage = Date.now();
         } catch(e) {
             client.send(JSON.stringify({ name, error: e.message }));
         }
@@ -108,7 +127,7 @@ wss.on('connection', (client, req) => {
 
 wss.subscribe('spaceship:info', (data, client, server) => {
     server.getTeamClients(data.team).forEach(client => {
-        server.sendToClient(client, 'spaceship:info', data);
+        server.sendToClients(client, 'spaceship:info', data);
     });
 });
 
@@ -119,41 +138,41 @@ wss.subscribe('user:avatar', (data, client, server) => {
 
 // Pilote actions
 wss.subscribe('spaceship:move', (data, client, server) => {
-    server.sendToClient(server.getMaster(), 'spaceship:move', data, client);
+    server.sendToClients(server.getMasters(), 'spaceship:move', data, client);
 });
 
 wss.subscribe('spaceship:rotate', (data, client, server) => {
-    server.sendToClient(server.getMaster(), 'spaceship:rotate', data, client);
+    server.sendToClients(server.getMasters(), 'spaceship:rotate', data, client);
 });
 
 wss.subscribe('spaceship:turnto', (data, client, server) => {
-    server.sendToClient(server.getMaster(), 'spaceship:turnto', data, client);
+    server.sendToClients(server.getMasters(), 'spaceship:turnto', data, client);
 });
 
 // Gunner actions
 wss.subscribe('spaceship:turret:rotate', (data, client, server) => {
-    server.sendToClient(server.getMaster(), 'spaceship:turret:rotate', data, client);
+    server.sendToClients(server.getMasters(), 'spaceship:turret:rotate', data, client);
 });
 
 wss.subscribe('spaceship:turret:turnto', (data, client, server) => {
-    server.sendToClient(server.getMaster(), 'spaceship:turret:turnto', data, client);
+    server.sendToClients(server.getMasters(), 'spaceship:turret:turnto', data, client);
 });
 
 wss.subscribe('spaceship:turret:fire', (data, client, server) => {
-    server.sendToClient(server.getMaster(), 'spaceship:turret:fire', data, client);
+    server.sendToClients(server.getMasters(), 'spaceship:turret:fire', data, client);
 });
 
 // Engineer
 wss.subscribe('spaceship:thruster:power', (data, client, server) => {
-    server.sendToClient(server.getMaster(), 'spaceship:thruster:power', data, client);
+    server.sendToClients(server.getMasters(), 'spaceship:thruster:power', data, client);
 });
 
 wss.subscribe('spaceship:shield:power', (data, client, server) => {
-    server.sendToClient(server.getMaster(), 'spaceship:shield:power', data, client);
+    server.sendToClients(server.getMasters(), 'spaceship:shield:power', data, client);
 });
 
 wss.subscribe('spaceship:system:power', (data, client, server) => {
-    server.sendToClient(server.getMaster(), 'spaceship:system:power', data, client);
+    server.sendToClients(server.getMasters(), 'spaceship:system:power', data, client);
 });
 
 httpServer.listen(8080);
