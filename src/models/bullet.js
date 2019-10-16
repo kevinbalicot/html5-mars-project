@@ -19,4 +19,8 @@ class Bullet extends BaseModel {
     render(drawer) {
         drawer.drawFillCircle(this.x, this.y, this.radius, 'yellow');
     }
+
+    clone() {
+        return new Bullet(this.x, this.y, this.angle, this.power, this.team);
+    }
 }

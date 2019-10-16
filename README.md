@@ -8,7 +8,7 @@ Quatre centres spatiaux en concurrence pour envoyer l’humanité sur Mars. Le p
 
 Apporter une cargaison d'humains sur Mars. Chaque aller retour fait marquer 1 point, mais attention aux astéroides ainsi qu'aux autres joueurs et leurs missiles.
 
-Pour ce faire, chaque équipe doit développer leur tableau de bord pour piloter leur vaisseau en utilisant les WebSocket pour communiquer avec le serveur. Une exemple de tableau de bord est disponible sur [http://92.222.88.16:9090/controller](http://92.222.88.16:9090/controller) et le plateau de jeu est disponible sur [http://92.222.88.16:9090](http://92.222.88.16:9090).
+Pour ce faire, chaque équipe doit développer leur tableau de bord pour piloter leur vaisseau en utilisant les WebSocket pour communiquer avec le serveur. Une exemple de tableau de bord est disponible sur [http://beelab.tk:9090/controller](http://beelab.tk:9090/controller) et le plateau de jeu est disponible sur [http://beelab.tk:9090](http://beelab.tk:9090).
 
 ![image demo 2](public/images/image2.png)
 
@@ -130,7 +130,8 @@ Ouvrez votre navigateur sur http://mars.docker ainsi que http://mars.docker/cont
 
 ### Support de cours
 
- * [Javascritp](https://docs.google.com/presentation/d/1id2U3ZztyoOAfjsveeGzYpiUVU_zSoGrquWGkm_Eg70/edit?usp=sharing)
+
+ * [JavaScript](https://docs.google.com/presentation/d/1id2U3ZztyoOAfjsveeGzYpiUVU_zSoGrquWGkm_Eg70/edit?usp=sharing)
  * [HTML5 Mars Project](https://docs.google.com/presentation/d/1zOB9d_irVn1iQa5_wlwMv1VMP1NHdozWzjy1IrC7oyQ/edit?usp=sharing)
 
 #### Remerciements

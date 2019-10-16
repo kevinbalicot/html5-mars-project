@@ -360,6 +360,7 @@
                                     <option value="Pilot">Pilot</option>
                                     <option value="Gunner">Gunner</option>
                                     <option value="Engineer">Engineer</option>
+                                    <option value="Pirate">Pirate</option>
                                 </select>
                             </div>
 
@@ -469,7 +470,7 @@
             const connect = (event) => {
                 event.preventDefault();
 
-                //const url = '92.222.88.16:9090';
+                //const url = 'beelab.tk:9090';
                 const url = 'localhost:8080';
                 const team = event.target.elements.team.value;
                 const username = event.target.elements.username.value;
@@ -539,7 +540,7 @@
                     document.getElementById('spaceship-turret-rotate-right').addEventListener('click', () => ws.sendToServer('spaceship:turret:rotate', { angle: 45, direction: 1 }));
                     document.getElementById('spaceship-turret-turnto-0').addEventListener('click', () => ws.sendToServer('spaceship:turret:turnto', { angle: 0 }));
                     document.getElementById('spaceship-turret-turnto-180').addEventListener('click', () => ws.sendToServer('spaceship:turret:turnto', { angle: 180 }));
-                    document.getElementById('spaceship-turret-fire').addEventListener('click', () => ws.sendToServer('spaceship:turret:fire', { power: 0.5 }));
+                    document.getElementById('spaceship-turret-fire').addEventListener('click', () => ws.sendToServer('spaceship:turret:fire', { power: 0.1 }));
                     document.getElementById('spaceship-turret-fire-100').addEventListener('click', () => ws.sendToServer('spaceship:turret:fire', { power: 1 }));
 
                     document.getElementById('spaceship-system-power-up')
@@ -576,11 +577,15 @@
             };
 
             document.getElementById('form-connect').addEventListener('submit', (event) => connect(event));
-            navigator.mediaDevices.getUserMedia({ video: true, audio: false }).then(() => {
+            setTimeout(function() {
                 document.querySelector('.modal').className += ' show';
+            }, 1000);
+            /*navigator.mediaDevices.getUserMedia({ video: true, audio: false }).then(stream => {
+                document.querySelector('.modal').className += ' show';
+                video.srcObject = stream;
             }).catch(e => {
                 document.querySelector('.modal').className += ' show';
-            });
+            });*/
         </script>
     </body>
 </html>

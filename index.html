@@ -20,7 +20,7 @@
 
             #canvas-container {
                 position: absolute;
-                width: 90%;
+                width: 100%;
                 left: 0;
                 top: 0;
                 bottom: 0;
@@ -30,11 +30,12 @@
             #chat-container {
                 position: absolute;
                 padding: 10px;
-                width: 10%;
+                width: 15%;
                 right: 0;
                 top: 0;
                 bottom: 0;
                 overflow: hidden;
+                opacity: .6;
             }
 
             .avatar {
@@ -42,6 +43,10 @@
                 width: 20px;
                 height: 20px;
                 border-radius: 10px;
+            }
+
+            .spaceship-turret-fire {
+                color: red;
             }
         </style>
     </head>
@@ -62,7 +67,7 @@
         <script src="/src/services/socket-client.js" charset="utf-8"></script>
         <script src="/src/services/event-emitter.js" charset="utf-8"></script>
         <script>
-            //const url = '92.222.88.16:9090';
+            //const url = 'beelab.tk:9090';
             const url = 'localhost:8080';
             const layer = {
                 create: function () {
@@ -85,7 +90,7 @@
 
                     let spaceship;
                     let station;
-                    let color = ['orange', 'blue', 'red', 'violet'];
+                    let color = ['orange', 'blue', 'red', 'violet', 'green'];
                     let delta = Math.round(this.height * 0.25) / 2 + 30;
                     for (let i = 0; i < 4; i++) {
                         spaceship = new Spaceship(i + 1, 20, Math.round(this.height * (0.25 * (i + 1))) - delta);
@@ -94,10 +99,22 @@
                         this.stations.push(station);
                     }
 
+                    /*let pirate = new Spaceship(5, this.width - 200, this.height / 2 - 30);
+                    pirate.angle = 180;
+                    pirate.turretAngle = 180;
+                    this.spaceships.push(pirate);*/
+
                     delta = (Math.round(this.height * 0.33) / 2);
                     this.asteroids.push(new Asteroid(Math.round(this.width * 0.20), Math.round(this.height * 0.33) - delta));
                     this.asteroids.push(new Asteroid(Math.round(this.width * 0.20), Math.round(this.height * 0.66) - delta));
                     this.asteroids.push(new Asteroid(Math.round(this.width * 0.20), this.height - delta));
+
+                    // Inter
+                    delta = (Math.round(this.height * 0.25) / 2);
+                    this.asteroids.push(new Asteroid(Math.round(this.width * 0.30), Math.round(this.height * 0.25) - delta + (Math.random() > 0.5 ? 1 : -1) * 50));
+                    this.asteroids.push(new Asteroid(Math.round(this.width * 0.30), Math.round(this.height * 0.50) - delta + (Math.random() > 0.5 ? 1 : -1) * 50));
+                    this.asteroids.push(new Asteroid(Math.round(this.width * 0.30), Math.round(this.height * 0.75) - delta + (Math.random() > 0.5 ? 1 : -1) * 50));
+                    this.asteroids.push(new Asteroid(Math.round(this.width * 0.30), this.height - delta + (Math.random() > 0.5 ? 1 : -1) * 50));
 
                     delta = (Math.round(this.height * 0.25) / 2);
                     this.asteroids.push(new Asteroid(Math.round(this.width * 0.40), Math.round(this.height * 0.25) - delta));
@@ -105,10 +122,25 @@
                     this.asteroids.push(new Asteroid(Math.round(this.width * 0.40), Math.round(this.height * 0.75) - delta));
                     this.asteroids.push(new Asteroid(Math.round(this.width * 0.40), this.height - delta));
 
+                    // Inter
+                    delta = (Math.round(this.height * 0.25) / 2);
+                    this.asteroids.push(new Asteroid(Math.round(this.width * 0.50), Math.round(this.height * 0.25) - delta + (Math.random() > 0.5 ? 1 : -1) * 50));
+                    this.asteroids.push(new Asteroid(Math.round(this.width * 0.50), Math.round(this.height * 0.50) - delta + (Math.random() > 0.5 ? 1 : -1) * 50));
+                    this.asteroids.push(new Asteroid(Math.round(this.width * 0.50), Math.round(this.height * 0.75) - delta + (Math.random() > 0.5 ? 1 : -1) * 50));
+                    this.asteroids.push(new Asteroid(Math.round(this.width * 0.50), this.height - delta + (Math.random() > 0.5 ? 1 : -1) * 50));
+
+
                     delta = (Math.round(this.height * 0.33) / 2);
                     this.asteroids.push(new Asteroid(Math.round(this.width * 0.60), Math.round(this.height * 0.33) - delta));
                     this.asteroids.push(new Asteroid(Math.round(this.width * 0.60), Math.round(this.height * 0.66) - delta));
                     this.asteroids.push(new Asteroid(Math.round(this.width * 0.60), this.height - delta));
+
+                    // Inter
+                    delta = (Math.round(this.height * 0.25) / 2);
+                    this.asteroids.push(new Asteroid(Math.round(this.width * 0.70), Math.round(this.height * 0.25) - delta + (Math.random() > 0.5 ? 1 : -1) * 50));
+                    this.asteroids.push(new Asteroid(Math.round(this.width * 0.70), Math.round(this.height * 0.50) - delta + (Math.random() > 0.5 ? 1 : -1) * 50));
+                    this.asteroids.push(new Asteroid(Math.round(this.width * 0.70), Math.round(this.height * 0.75) - delta + (Math.random() > 0.5 ? 1 : -1) * 50));
+                    this.asteroids.push(new Asteroid(Math.round(this.width * 0.70), this.height - delta + (Math.random() > 0.5 ? 1 : -1) * 50));
 
                     delta = (Math.round(this.height * 0.25) / 2);
                     this.asteroids.push(new Asteroid(Math.round(this.width * 0.80), Math.round(this.height * 0.25) - delta));
@@ -124,19 +156,12 @@
                         const { name, data, error } = JSON.parse(message.data);
 
                         if (!error) {
-                            let message = name;
-                            for (let key in data) {
-                                if (['user'].indexOf(key) === -1) {
-                                    message += ` [${key}=${data[key]}]`;
-                                }
-                            }
-
                             if (name != 'spaceship:info') {
-                                this.chat.add(data.user, message);
+                                this.chat.add(data.user, name);
                             }
 
                         } else {
-                            return alert(error);
+                            return console.log(error);
                         }
 
                         const spaceship = this.spaceships.find(s => s.team == data.user.team);
@@ -144,10 +169,9 @@
                     };
 
                     this.client.onopen = () => {
-                        setInterval(() => this.client.sendToServer('spaceship:info', this.spaceships[0].info()), 1000);
-                        setInterval(() => this.client.sendToServer('spaceship:info', this.spaceships[1].info()), 1000);
-                        setInterval(() => this.client.sendToServer('spaceship:info', this.spaceships[2].info()), 1000);
-                        setInterval(() => this.client.sendToServer('spaceship:info', this.spaceships[3].info()), 1000);
+                        this.spaceships.forEach(spaceship => {
+                            setInterval(() => this.client.sendToServer('spaceship:info', spaceship.info()), 1000);
+                        });
                     };
 
                     this.event.subscribe('spaceship:move', (data, spaceship) => {
@@ -162,7 +186,6 @@
                         spaceship.setAngle(data.angle, data.direction);
                     });
 
-
                     this.event.subscribe('spaceship:turret:rotate', (data, spaceship) => {
                         spaceship.rotateTurret(data.angle, data.direction);
                     });
@@ -173,11 +196,31 @@
 
                     this.event.subscribe('spaceship:turret:fire', (data, spaceship) => {
                         let bullet;
+                        let index;
                         if (bullet = spaceship.fire(data.power)) {
                             this.bullets.push(bullet);
+                            if (this.bullets.filter(b => b.team === spaceship.team).length > 10) {
+                                index = this.bullets.findIndex(b => b.team === spaceship.team);
+                                this.bullets.splice(index, 1);
+                            }
+
+                            let otherBullet;
+                            if (spaceship.team === 5) {
+                                otherBullet = bullet.clone();
+                                otherBullet.angle -= 5;
+                                this.bullets.push(otherBullet);
+                                otherBullet = bullet.clone();
+                                otherBullet.angle -= 10;
+                                this.bullets.push(otherBullet);
+                                otherBullet = bullet.clone();
+                                otherBullet.angle += 5;
+                                this.bullets.push(otherBullet);
+                                otherBullet = bullet.clone();
+                                otherBullet.angle += 10;
+                                this.bullets.push(otherBullet);
+                            }
                         }
                     });
-
 
                     this.event.subscribe('spaceship:thruster:power', (data, spaceship) => {
                         spaceship.changeThrusterPower(data.power);
@@ -209,7 +252,7 @@
                         hasCollision = CollisionChecker.hasCollisions(spaceship, this.asteroids);
                         if (hasCollision) {
                             angle = Math.atan2((hasCollision.y + hasCollision.height / 2)- (spaceship.y + spaceship.height / 2), (hasCollision.x + hasCollision.width / 2) - (spaceship.x + spaceship.width / 2)) * 180 / Math.PI;
-                            spaceship.hit(0.5, angle, 50, -1);
+                            spaceship.hit(1, angle, 75, -1);
                             hasCollision.hit(0.1, angle);
                         }
 
@@ -225,11 +268,17 @@
 
                         if (spaceship.x < 0) {
                             spaceship.x = 0;
-                        } else if (spaceship.x + spaceship.width > this.width) {
+                        }
+
+                        if (spaceship.x + spaceship.width > this.width) {
                             spaceship.x = this.width - spaceship.width;
-                        } else if (spaceship.y < 0) {
+                        }
+
+                        if (spaceship.y < 0) {
                             spaceship.y = 0;
-                        } else if (spaceship.y + spaceship.height > this.height) {
+                        }
+
+                        if (spaceship.y + spaceship.height > this.height) {
                             spaceship.y = this.height - spaceship.height;
                         }
 
@@ -265,18 +314,28 @@
                             this.bullets.splice(index, 1);
                         }
 
-                        if (CollisionChecker.hasCollisions(bullet, this.asteroids)) {
+                        if (hasCollision = CollisionChecker.hasCollisions(bullet, this.asteroids)) {
+                            hasCollision.hit(bullet.power, bullet.angle);
                             this.bullets.splice(index, 1);
                         }
 
                         this.ticker.every(2, () => {
                             this.particles.push(new Particle(
-                                bullet.x + (Math.random() * 5),
-                                bullet.y + (Math.random() * 5),
+                                bullet.x + (Math.random() > 0.5 ? 1 : -1) * (Math.random() * 5),
+                                bullet.y + (Math.random() > 0.5 ? 1 : -1) * (Math.random() * 5),
                                 'fillcircle',
                                 { radius: 2.5, color: 'yellow', rotate: (bullet.angle + 180) % 360, velocity: 0.1 }
                             ));
                         });
+
+                        if (
+                            (bullet.x < 0) ||
+                            (bullet.x + bullet.width > this.width) ||
+                            (bullet.y < 0) ||
+                            (bullet.y + bullet.height > this.height)
+                        ) {
+                            this.bullets.splice(index, 1);
+                        }
                     });
 
                     this.asteroids.forEach(asteroid => asteroid.step(dt));
@@ -319,17 +378,6 @@
                     this.drawText(`Team 2: ${this.scores[2]}`, 120, 20, '12pt', 'Arial', 'white');
                     this.drawText(`Team 3: ${this.scores[3]}`, 220, 20, '12pt', 'Arial', 'white');
                     this.drawText(`Team 4: ${this.scores[4]}`, 320, 20, '12pt', 'Arial', 'white');
-
-
-                    /*this.debug([
-                        this.safeZone,
-                        this.goalZone,
-                        this.goal,
-                        this.station1,
-                        this.station2,
-                        this.station3,
-                        this.station4
-                    ].concat(this.spaceships, this.bullets, this.asteroids));*/
                 }
             };
 
@@ -343,6 +391,7 @@
                     this.loader.add('public/images/ship2.png', 'ship2');
                     this.loader.add('public/images/ship3.png', 'ship3');
                     this.loader.add('public/images/ship4.png', 'ship4');
+                    this.loader.add('public/images/ship5.png', 'ship5');
                     this.loader.add('public/images/asteroid1.png', 'asteroid1');
                     this.loader.add('public/images/asteroid2.png', 'asteroid2');
                     this.loader.add('public/images/earth.png', 'earth');

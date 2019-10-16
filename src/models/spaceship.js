@@ -28,8 +28,6 @@ class Spaceship extends BaseModel {
         this.turretTurnSpeed = 1;
         this.turretTurnDirection = 1;
 
-        this.color = "rgb(255,0,0)";
-
         this.velX = 0;
         this.velY = 0;
 
@@ -44,7 +42,7 @@ class Spaceship extends BaseModel {
         this.inSafeZone = true;
         this.cargo = false;
         this.opacity = 1;
-        this.color = ['orange', 'blue', 'red', 'violet'][this.team - 1];
+        this.color = 'white'; //['orange', 'blue', 'red', 'violet', 'green'][this.team - 1];
     }
 
     fire(power) {
@@ -78,7 +76,7 @@ class Spaceship extends BaseModel {
     }
 
     hit(power, angle, dammage, direction = 1) {
-        if (!this.hitting) {
+        if (!this.hitting && !this.inSafeZone) {
             this.life -= dammage * (1 - this.shieldPower);
             this.hitting = true;
 
@@ -141,25 +139,25 @@ class Spaceship extends BaseModel {
     }
 
     changeThrusterPower(power) {
-        const delta = 1 - power;
+        const delta = 1 - Math.abs(power);
 
-        this.thrusterPower = power;
+        this.thrusterPower = Math.abs(power);
         this.systemPower = delta / 2;
         this.shieldPower = delta / 2;
     }
 
     changeSystemPower(power) {
-        const delta = 1 - power;
+        const delta = 1 - Math.abs(power);
 
-        this.systemPower = power;
+        this.systemPower = Math.abs(power);
         this.thrusterPower = delta / 2;
         this.shieldPower = delta / 2;
     }
 
     changeShieldPower(power) {
-        const delta = 1 - power;
+        const delta = 1 - Math.abs(power);
 
-        this.shieldPower = power;
+        this.shieldPower = Math.abs(power);
         this.thrusterPower = delta / 2;
         this.systemPower = delta / 2;
     }
@@ -213,7 +211,7 @@ class Spaceship extends BaseModel {
         drawer.save();
         drawer.rotateModel(this, this.turretAngle);
         drawer.ctx.setLineDash([5, 3]);
-        drawer.drawLine(this.x + this.width / 2, this.y + this.height / 2, this.x + this.width + 25, this.y + this.height / 2, 1, this.color);
+        drawer.drawLine(this.x + this.width / 2, this.y + this.height / 2, this.x + this.width + 25, this.y + this.height / 2, 2, this.color);
         drawer.restore();
 
         drawer.save();
